@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 :root {
-  --bg: #FAFAF7;
+  --bg: #F0ECE2;
   --ink: #0F0E0C;
   --ink-soft: #5A5650;
   --ink-muted: #9C958C;
@@ -22,8 +22,23 @@ html {
   scroll-behavior: smooth;
 }
 
+/* The body itself carries the gradient. Because its height equals the
+   full scrollable document height, scrolling down naturally moves you
+   further into the gradient — no JS scroll tracking required. Cream up
+   top, easing into a dusty rose-to-indigo tone toward the bottom so it
+   ties into the orange/pink/blue/purple accent palette instead of
+   drifting into a muddy olive. */
 body {
-  background: var(--bg);
+  background: linear-gradient(
+    180deg,
+    #F6F3ED 0%,
+    #F0ECE2 14%,
+    #E6DEE0 36%,
+    #D3C3D2 56%,
+    #B7A4C5 76%,
+    #9A89B8 92%,
+    #8A7CB0 100%
+  );
   color: var(--ink);
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
@@ -32,4 +47,27 @@ body {
 ::selection {
   background: #FF6B35;
   color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+body.custom-cursor-active,
+body.custom-cursor-active * {
+  cursor: none !important;
+}
+
+/* Native scrollbar is hidden — replaced by the curving ScrollProgress
+   indicator fixed to the left edge of the viewport. */
+html {
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

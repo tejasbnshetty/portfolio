@@ -1,6 +1,14 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Syne } from "next/font/google";
+import FloatingIcons from "./FloatingIcons";
+import ContactModal from "./ContactModal";
+import {
+  CodeIcon,
+  DatabaseIcon,
+  CloudIcon,
+  GitBranchIcon,
+} from "./icons/Icons";
 
 const syne = Syne({ subsets: ["latin"], weight: ["700", "800"] });
 
@@ -12,8 +20,16 @@ const chips = [
   { label: "Android", color: "border-[#EF476F] text-[#EF476F] bg-[#FEE8EF]" },
 ];
 
+const bgIcons = [
+  { Icon: CodeIcon, top: "12%", left: "78%", size: 30, color: "#FF6B35", delay: 0, duration: 7 },
+  { Icon: DatabaseIcon, top: "65%", left: "85%", size: 26, color: "#4361EE", delay: 1.4, duration: 8 },
+  { Icon: CloudIcon, top: "35%", left: "8%", size: 28, color: "#06D6A0", delay: 0.8, duration: 9 },
+  { Icon: GitBranchIcon, top: "75%", left: "15%", size: 24, color: "#7B2FBE", delay: 2.2, duration: 7.5 },
+];
+
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const [contactOpen, setContactOpen] = useState(false);
 
   useEffect(() => {
     const el = heroRef.current;
@@ -22,23 +38,16 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={heroRef} className="hero-section relative w-full min-h-screen overflow-hidden">
-      {/* Floating blobs — full viewport */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="blob blob-1" />
-        <div className="blob blob-2" />
-        <div className="blob blob-3" />
-        <div className="blob blob-4" />
-      </div>
+    <section
+      ref={heroRef}
+      data-cursor-theme="hero"
+      className="hero-section relative w-full min-h-screen overflow-hidden"
+    >
+      {/* Ambient tech icons */}
+      <FloatingIcons icons={bgIcons} />
 
       {/* Centered content */}
       <div className="relative z-10 max-w-4xl mx-auto px-7 pt-36 pb-20 flex flex-col justify-center min-h-screen">
-
-        {/* Available tag */}
-        <div className="available-tag flex items-center gap-2 text-[#059669] bg-[#E8F8F2] text-sm font-medium px-4 py-2 rounded-full w-fit mb-7">
-          <span className="pulse-dot w-2 h-2 rounded-full bg-[#06D6A0] inline-block" />
-          Open to work — Canberra, AU
-        </div>
 
         {/* Headline */}
         <h1 className={`${syne.className} text-[clamp(48px,8vw,80px)] font-black leading-none mb-5`}>
@@ -55,11 +64,26 @@ export default function Hero() {
 
         {/* Buttons */}
         <div className="hero-btns flex gap-3 flex-wrap mb-7">
-          <a
-            href="mailto:tejasbnshetty@gmail.com"
-            className="px-6 py-3 rounded-full bg-[#0F0E0C] text-white text-sm font-medium hover:-translate-y-1 hover:shadow-lg transition-all"
+          <button
+            type="button"
+            onClick={() => setContactOpen(true)}
+            className="px-6 py-3 rounded-full bg-[#0F0E0C] text-white text-sm font-medium hover:-translate-y-1 hover:shadow-lg transition-all cursor-pointer"
           >
             Say hello →
+          </button>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+            className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full border-2 border-[#0F0E0C] text-[#0F0E0C] text-sm font-medium hover:-translate-y-1 hover:shadow-lg hover:bg-[#0F0E0C] hover:text-white transition-all"
+          >
+            <svg viewBox="0 0 24 24" width={15} height={15} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Résumé
           </a>
           <a
             href="https://bardar.online"
@@ -68,14 +92,6 @@ export default function Hero() {
             className="px-6 py-3 rounded-full bg-[#FF6B35] text-white text-sm font-medium hover:-translate-y-1 hover:shadow-lg transition-all"
           >
             See Bardar live ↗
-          </a>
-          <a
-            href="https://github.com/tejasbnshetty"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 rounded-full border border-[#E8E4DC] text-[#5A5650] text-sm font-medium hover:border-[#5A5650] hover:text-[#0F0E0C] transition-all"
-          >
-            GitHub
           </a>
         </div>
 
@@ -92,26 +108,9 @@ export default function Hero() {
         </div>
       </div>
 
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
+
       <style jsx>{`
-        .blob {
-          position: absolute;
-          border-radius: 50%;
-          opacity: 0.13;
-          animation: floatBlob 8s ease-in-out infinite;
-        }
-        .blob-1 { width: 500px; height: 500px; background: #FF6B35; top: -150px; right: -100px; animation-delay: 0s; }
-        .blob-2 { width: 350px; height: 350px; background: #4361EE; bottom: 0px; left: -100px; animation-delay: 2s; }
-        .blob-3 { width: 250px; height: 250px; background: #06D6A0; top: 40%; right: 5%; animation-delay: 4s; }
-        .blob-4 { width: 180px; height: 180px; background: #FFD166; top: 15%; left: 50%; animation-delay: 1s; }
-        @keyframes floatBlob {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-30px) rotate(8deg); }
-        }
-        .pulse-dot { animation: pulse 2s ease-in-out infinite; }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.4; transform: scale(0.8); }
-        }
         .grad-text {
           background: linear-gradient(135deg, #FF6B35 0%, #EF476F 40%, #4361EE 100%);
           background-size: 200%;
@@ -123,13 +122,11 @@ export default function Hero() {
           0%, 100% { background-position: 0%; }
           50% { background-position: 100%; }
         }
-        .available-tag { opacity: 0; transform: translateY(-12px); transition: all 0.5s ease; }
         .hero-line1 { opacity: 0; transform: translateY(28px); transition: all 0.6s 0.1s ease; }
         .hero-line2 { opacity: 0; transform: translateY(28px); transition: all 0.6s 0.2s ease; }
         .hero-desc { opacity: 0; transform: translateY(28px); transition: all 0.6s 0.3s ease; }
         .hero-btns { opacity: 0; transform: translateY(28px); transition: all 0.6s 0.4s ease; }
         .hero-chips { opacity: 0; transform: translateY(28px); transition: all 0.6s 0.5s ease; }
-        .loaded .available-tag,
         .loaded .hero-line1,
         .loaded .hero-line2,
         .loaded .hero-desc,

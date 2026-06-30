@@ -5,10 +5,18 @@ import Experience from "@/components/Experience";
 import Skills from "@/components/Skills";
 import Research from "@/components/Research";
 import Footer from "@/components/Footer";
+import CustomCursor from "@/components/CustomCursor";
+import PageBurst from "@/components/PageBurst";
+import ScrollProgress from "@/components/ScrollProgress";
+import Blobs from "@/components/Blobs";
 
 export default function Home() {
   return (
-    <main>
+    <main className="relative">
+      <CustomCursor />
+      <PageBurst />
+      <ScrollProgress />
+      <Blobs />
       <Navbar />
       <Hero />
       <Projects />
