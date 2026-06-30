@@ -42,7 +42,7 @@ export default function ScrollProgress() {
   }, []);
 
   return (
-    <div className="fixed left-0 top-0 h-screen w-9 z-[55] pointer-events-none hidden sm:block">
+    <div className="fixed left-0 top-16 bottom-0 w-9 z-[45] pointer-events-none hidden sm:block">
       <svg viewBox="0 0 40 800" preserveAspectRatio="none" className="w-full h-full overflow-visible">
         <defs>
           <linearGradient id="scrollGrad" x1="0" y1="0" x2="0" y2="1">
@@ -58,8 +58,8 @@ export default function ScrollProgress() {
           d={WAVE_PATH}
           fill="none"
           stroke="#0F0E0C"
-          strokeOpacity={0.1}
-          strokeWidth={2.5}
+          strokeOpacity={0.12}
+          strokeWidth={5}
           strokeLinecap="round"
           vectorEffect="non-scaling-stroke"
         />
@@ -70,7 +70,7 @@ export default function ScrollProgress() {
           d={WAVE_PATH}
           fill="none"
           stroke="url(#scrollGrad)"
-          strokeWidth={3}
+          strokeWidth={6}
           strokeLinecap="round"
           vectorEffect="non-scaling-stroke"
         />
