@@ -118,7 +118,7 @@ export default function Experience() {
               >
                 {/* Dot */}
                 <div
-                  className="absolute -left-8 top-1.5 w-4 h-4 rounded-full border-2 border-white shadow-md"
+                  className="absolute -left-7 top-1.5 w-4 h-4 rounded-full border-2 border-white shadow-md"
                   style={{ background: exp.accent }}
                 />
 
