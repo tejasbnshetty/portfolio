@@ -29,10 +29,13 @@ const THEMES: Record<string, { icons: IconType[]; color: string }> = {
   default: { icons: [SparkleIcon], color: "#0F0E0C" },
 };
 
+const TRAIL_COUNT = 5;
+
 export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const orbitRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const trailRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const [enabled, setEnabled] = useState(false);
   const [theme, setTheme] = useState("default");
   const [pointerType, setPointerType] = useState<"default" | "link">("default");
@@ -49,13 +52,14 @@ export default function CustomCursor() {
     let rx = mx;
     let ry = my;
     let t = 0;
+    const trail = Array.from({ length: TRAIL_COUNT }, () => ({ x: mx, y: my }));
     let raf = 0;
 
     function onMove(e: MouseEvent) {
       mx = e.clientX;
       my = e.clientY;
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${mx}px, ${my}px)`;
+        dotRef.current.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
       }
 
       const el = document.elementFromPoint(mx, my);
@@ -67,13 +71,31 @@ export default function CustomCursor() {
       setPointerType(interactive ? "link" : "default");
     }
 
+    let stretch = 0;
+    let stretchAngle = 0;
+
     function loop() {
       // ring lags the dot
       rx += (mx - rx) * 0.18;
       ry += (my - ry) * 0.18;
+
+      // how far behind the dot the ring currently is, and in which
+      // direction — used to squash/stretch the ring like it's being
+      // pulled along, snapping back to a circle once it catches up
+      const dx = mx - rx;
+      const dy = my - ry;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const targetStretch = Math.min(dist / 26, 0.5);
+      const targetAngle = dist > 1.5 ? Math.atan2(dy, dx) * (180 / Math.PI) : stretchAngle;
+      stretch += (targetStretch - stretch) * 0.3;
+      stretchAngle += (targetAngle - stretchAngle) * 0.3;
+
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate(${rx}px, ${ry}px)`;
+        ringRef.current.style.transform =
+          `translate(${rx}px, ${ry}px) translate(-50%, -50%) ` +
+          `rotate(${stretchAngle}deg) scale(${1 + stretch}, ${1 - stretch * 0.45})`;
       }
+
       // orbit icons drift around the dot at staggered radii/speeds
       t += 0.025;
       orbitRefs.current.forEach((el, i) => {
@@ -83,8 +105,21 @@ export default function CustomCursor() {
         const angle = t * speed + (i * (Math.PI * 2)) / 3;
         const ox = mx + Math.cos(angle) * radius;
         const oy = my + Math.sin(angle) * radius;
-        el.style.transform = `translate(${ox}px, ${oy}px)`;
+        el.style.transform = `translate(${ox}px, ${oy}px) translate(-50%, -50%)`;
       });
+
+      // comet trail — each dot chases the one before it
+      trail[0].x += (mx - trail[0].x) * 0.4;
+      trail[0].y += (my - trail[0].y) * 0.4;
+      for (let i = 1; i < trail.length; i++) {
+        trail[i].x += (trail[i - 1].x - trail[i].x) * 0.4;
+        trail[i].y += (trail[i - 1].y - trail[i].y) * 0.4;
+      }
+      trail.forEach((p, i) => {
+        const el = trailRefs.current[i];
+        if (el) el.style.transform = `translate(${p.x}px, ${p.y}px) translate(-50%, -50%)`;
+      });
+
       raf = requestAnimationFrame(loop);
     }
 
@@ -103,9 +138,25 @@ export default function CustomCursor() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[999]">
+      {/* comet trail, faintest furthest back */}
+      {Array.from({ length: TRAIL_COUNT }).map((_, i) => (
+        <span
+          key={i}
+          ref={(el) => { trailRefs.current[i] = el; }}
+          className="trail-dot fixed top-0 left-0 rounded-full"
+          style={{
+            width: 6 - i * 0.8,
+            height: 6 - i * 0.8,
+            background: activeTheme.color,
+            opacity: 0.32 - i * 0.055,
+            filter: `blur(${1 + i * 0.6}px)`,
+          }}
+        />
+      ))}
+
       <div
         ref={ringRef}
-        className="cursor-ring fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full border"
+        className="cursor-ring fixed top-0 left-0 rounded-full border"
         style={{
           width: pointerType === "link" ? 46 : 32,
           height: pointerType === "link" ? 46 : 32,
@@ -115,7 +166,7 @@ export default function CustomCursor() {
       />
       <div
         ref={dotRef}
-        className="cursor-dot fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full"
+        className="cursor-dot fixed top-0 left-0 rounded-full"
         style={{
           width: pointerType === "link" ? 6 : 8,
           height: pointerType === "link" ? 6 : 8,
@@ -126,7 +177,7 @@ export default function CustomCursor() {
         <span
           key={theme + i}
           ref={(el) => { orbitRefs.current[i] = el; }}
-          className="orbit-icon fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2"
+          className="orbit-icon fixed top-0 left-0"
           style={{ color: activeTheme.color, opacity: 0.55 }}
         >
           <Icon width={13} height={13} strokeWidth={1.8} />
@@ -138,6 +189,9 @@ export default function CustomCursor() {
         }
         .cursor-dot {
           transition: width 0.2s ease, height 0.2s ease, background 0.3s ease;
+        }
+        .trail-dot {
+          transition: background 0.3s ease;
         }
         .orbit-icon {
           transition: color 0.3s ease;
