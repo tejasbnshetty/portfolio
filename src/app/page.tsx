@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
 import Experience from "@/components/Experience";
+import Education from "@/components/Education";
 import Skills from "@/components/Skills";
 import Research from "@/components/Research";
 import Footer from "@/components/Footer";
@@ -21,6 +22,7 @@ export default function Home() {
       <Hero />
       <Projects />
       <Experience />
+      <Education />
       <Skills />
       <Research />
       <Footer />

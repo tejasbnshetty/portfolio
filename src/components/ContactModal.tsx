@@ -19,9 +19,8 @@ const contacts = [
   },
   {
     label: "Phone",
-    // TODO: replace with your real number
-    value: "+61 4XX XXX XXX",
-    href: "tel:+614XXXXXXXX",
+    value: "0425 229 458",
+    href: "tel:+61425229458",
     accent: "#06D6A0",
     icon: (
       <svg viewBox="0 0 24 24" width={18} height={18} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">

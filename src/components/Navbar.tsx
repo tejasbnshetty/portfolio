@@ -4,7 +4,7 @@ import { Syne } from "next/font/google";
 
 const syne = Syne({ subsets: ["latin"], weight: ["800"] });
 
-const links: string[] = ["Work", "Experience", "Research", "Contact"];
+const links: string[] = ["Work", "Experience", "Education", "Research", "Contact"];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);

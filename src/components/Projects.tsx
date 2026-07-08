@@ -4,6 +4,7 @@ import { Syne } from "next/font/google";
 import FloatingIcons from "./FloatingIcons";
 import MagneticIcon from "./MagneticIcon";
 import RevealPanel from "./RevealPanel";
+import Lightbox from "./Lightbox";
 import {
   ChevronDownIcon,
   CodeIcon,
@@ -34,12 +35,18 @@ const projects = [
     badge: "🟢 Live product",
     badgeClass: "text-[#059669] bg-[#E8F8F2]",
     highlights: [
-      "Designed the Bardar Score algorithm ranking artists by locality, popularity and recency signals.",
-      "Built a priority task queue with per-client rate limiting to keep external API calls within budget.",
-      "Shipped an agentic chatbot with 11 distinct tool calls for search, recommendations and itinerary building.",
-      "Cut search latency by 20–30% through query restructuring and caching.",
+      "Designed the Bardar Score — a custom log-scaled algorithm that ranks thousands of artists across any city globally without re-normalisation.",
+      "Owned 10+ REST APIs covering artist discovery, geo-sync, genre filtering, bookmarking, and head-to-head comparison, integrated with MusicBrainz, Last.fm and Fanart.tv.",
+      "Architected a priority task queue and per-API rate limiter so user-facing requests always preempt background sync jobs, reducing search latency by 20–30%.",
+      "Led end-to-end integration of an agentic AI chatbot (Gemini 2.5 Flash) with access to all backend tool calls, enabling natural language queries like 'top jazz artists in Sydney?' with fully interactive results.",
+      "Contributed to the Next.js frontend including several pages and a real-time sync progress UI.",
     ],
-    screens: ["Score algorithm", "Chatbot tools", "API surface"],
+    portrait: false,
+    screens: [
+      { src: "/bardar-dashboard.png", alt: "Artist Discovery Dashboard" },
+      { src: "/bardar-compare.png", alt: "Head-to-Head Artist Comparison" },
+      { src: "/bardar-chat.png", alt: "AI Chatbot Interface" },
+    ],
   },
   {
     name: "Nutricate",
@@ -58,12 +65,16 @@ const projects = [
     badge: "🏆 Best Social Project · IISc Bengaluru",
     badgeClass: "text-[#059669] bg-[#E8F8F2]",
     highlights: [
-      "Built a real-time OCR pipeline to parse ingredient lists straight from a phone camera.",
-      "Matched extracted text against a personal allergen database with fuzzy matching for label noise.",
-      "Designed onboarding so a profile of allergies takes under 30 seconds to set up.",
-      "Won Best Social Project among 40+ teams at IISc Bengaluru's Social Hackathon League.",
+      "Solves a real problem: people with food allergies struggle to quickly verify if packaged products are safe.",
+      "Uses OCR to scan food product labels directly from the phone camera, extracts ingredient text and cross-checks against a user-defined personal allergen database.",
+      "Delivers instant alerts if an unsafe ingredient is detected.",
+      "Built natively in Android/Java with Firebase and SQLite — designed to be fast, offline-friendly, and accessible to non-technical users.",
     ],
-    screens: ["Label scan", "Allergen flag", "Profile setup"],
+    portrait: true,
+    screens: [
+      { src: "/nutricate-scan.png", alt: "Food Label OCR Scan" },
+      { src: "/nutricate-unsafe.png", alt: "Allergen Detected Alert" },
+    ],
   },
   {
     name: "PoliRec",
@@ -82,11 +93,19 @@ const projects = [
     badge: null,
     badgeClass: "",
     highlights: [
-      "Split the app into citizen-facing and admin portals with role-based access control.",
-      "Integrated a Hugging Face LLM to resolve common vehicle-registration queries without a human in the loop.",
-      "Modelled the registration, renewal and penalty workflows end-to-end in Firebase.",
+      "Built to address fragmented government vehicle management and public query systems.",
+      "Unified platform with separate user and admin portals — users submit service requests, track status, and resolve queries in one place.",
+      "Admins manage and resolve requests from a dedicated dashboard.",
+      "Integrated a Hugging Face LLM chatbot to automate responses to common queries, significantly reducing manual overhead for admin staff.",
     ],
-    screens: ["User portal", "Admin portal", "Chatbot flow"],
+    portrait: true,
+    screens: [
+      { src: "/polirec-front.png", alt: "PoliRec Splash Screen" },
+      { src: "/polirec-search.png", alt: "Search Admin" },
+      { src: "/polirec-chat.png", alt: "PolyRecBot Chat Assistant" },
+      { src: "/polirec-requests.png", alt: "Submitted Requests List" },
+      { src: "/polirec-notification.png", alt: "Notification on Search Page" },
+    ],
   },
 ];
 
@@ -103,6 +122,7 @@ export default function Projects() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   const [origin, setOrigin] = useState({ x: 50, y: 0 });
   const [revealed, setRevealed] = useState(false);
+  const [lightbox, setLightbox] = useState<{ images: { src: string; alt: string }[]; index: number } | null>(null);
 
   function toggle(i: number, e: React.MouseEvent<HTMLButtonElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -253,22 +273,49 @@ export default function Projects() {
                     <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: p.accent }}>
                       Snapshots
                     </p>
-                    <div className="grid grid-cols-3 gap-3">
-                      {p.screens.map((s) => (
-                        <div
-                          key={s}
-                          className="aspect-[4/3] rounded-xl flex flex-col items-center justify-center gap-2 text-center px-2"
-                          style={{ background: p.accentBg }}
-                        >
-                          <RocketIcon width={20} height={20} style={{ color: p.accent }} />
-                          <span className="text-[11px] font-medium text-[#5A5650]">{s}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-[11px] text-[#9C958C] mt-3 italic">
-                      Drop real screenshots into these tiles — swap the placeholder div for a
-                      Next.js &lt;Image /&gt; once you have assets.
-                    </p>
+                    {p.portrait ? (
+                      /* Mobile screenshots — portrait, scrollable horizontal strip */
+                      <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 snap-x snap-mandatory">
+                        {p.screens.map((s, si) => (
+                          <button
+                            key={s.src}
+                            type="button"
+                            onClick={() => setLightbox({ images: p.screens, index: si })}
+                            className="flex-shrink-0 w-36 snap-start rounded-xl overflow-hidden border hover:scale-105 hover:shadow-lg transition-all duration-200 cursor-zoom-in"
+                            style={{ borderColor: p.accent + "33" }}
+                            aria-label={`View ${s.alt}`}
+                          >
+                            <img
+                              src={s.src}
+                              alt={s.alt}
+                              className="w-full h-auto block"
+                              loading="lazy"
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      /* Web/desktop screenshots — landscape grid */
+                      <div className={`grid gap-3 ${p.screens.length === 2 ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-3"}`}>
+                        {p.screens.map((s, si) => (
+                          <button
+                            key={s.src}
+                            type="button"
+                            onClick={() => setLightbox({ images: p.screens, index: si })}
+                            className="rounded-xl overflow-hidden border hover:scale-[1.02] hover:shadow-lg transition-all duration-200 cursor-zoom-in"
+                            style={{ borderColor: p.accent + "33" }}
+                            aria-label={`View ${s.alt}`}
+                          >
+                            <img
+                              src={s.src}
+                              alt={s.alt}
+                              className="w-full h-auto block"
+                              loading="lazy"
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </RevealPanel>
               </div>
@@ -278,6 +325,7 @@ export default function Projects() {
       </div>
 
       <style jsx>{`
+}
         .animate-item {
           opacity: 0;
           transition: opacity 0.6s ease, transform 0.6s ease;
@@ -293,6 +341,14 @@ export default function Projects() {
         .animate-item:nth-child(3) { transition-delay: 0.2s; }
         .animate-item:nth-child(4) { transition-delay: 0.3s; }
       `}</style>
+
+      {lightbox && (
+        <Lightbox
+          images={lightbox.images}
+          startIndex={lightbox.index}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </section>
   );
 }

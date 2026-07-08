@@ -16,10 +16,12 @@ const experiences = [
     accent: "#FF6B35",
     link: "https://bardar.online",
     details: [
-      "Owned 10+ REST APIs across discovery, scoring and chatbot tooling endpoints.",
-      "Led integration of an 11-tool agentic chatbot powered by Gemini 2.5 Flash.",
-      "Set up a priority task queue with client-level rate limiting to control external API spend.",
-      "Mentored two teammates on NestJS patterns and code review practice.",
+      "Engineered the entire NestJS backend from scratch, owning 10+ REST APIs across artist discovery, geo-sync, genre filtering, bookmarking, and head-to-head comparison.",
+      "Designed the Bardar Score — a custom log-scaled algorithm that ranks thousands of artists across any city globally without re-normalisation.",
+      "Architected a priority task queue and per-API rate limiter to orchestrate concurrent external API calls, reducing search latency by 20–30% and eliminating pipeline breakage under concurrent load.",
+      "Led end-to-end integration of an agentic AI chatbot (Gemini 2.5 Flash) with access to all backend tool calls, enabling natural language artist discovery with dynamically rendered rich UI cards.",
+      "Integrated multiple third-party music APIs (MusicBrainz, Last.fm, Fanart.tv) for artist data, images, and popularity metrics.",
+      "Contributed to the Next.js frontend including several pages and a real-time sync progress UI.",
     ],
   },
   {
@@ -30,10 +32,10 @@ const experiences = [
     accent: "#4361EE",
     link: null,
     details: [
-      "Trained and deployed YOLO models for real-time defect detection on production lines.",
-      "Built Flask microservices to serve inference results to plant-floor dashboards.",
-      "Reduced manual inspection error rate by 60% through tighter confidence thresholds.",
-      "Cut average processing time per batch by 25% via pipeline parallelisation.",
+      "Delivered Python/Flask backend APIs and a QR-based inventory system to automate chip fabrication inventory workflows, reducing processing time by 25%.",
+      "Built YOLO-based computer vision pipelines for production line quality control — automatically detecting assembly errors and container defects, cutting error rates by 60%.",
+      "Worked on complex PostgreSQL query optimisation to improve data accessibility for production teams.",
+      "Designed real-time monitoring pipelines to support faster operational decision making.",
     ],
   },
   {
@@ -44,9 +46,11 @@ const experiences = [
     accent: "#06D6A0",
     link: null,
     details: [
-      "Rebuilt the onboarding flow in Java, cutting drop-off at signup by a third.",
-      "Wrote an automated QA suite covering 90% of regression-prone flows.",
-      "Brought daily bug reports down from double digits to under 2 per week.",
+      "First professional software role — built the onboarding flows new users see when registering for the first time.",
+      "Simplified the registration process, improving user engagement by 40%.",
+      "Automated 90% of QA testing workflows, drastically reducing manual testing effort.",
+      "Cut daily bug reports to under 2 per week through systematic test coverage.",
+      "Worked directly with the client team, managing communication and delivery independently.",
     ],
   },
 ];
