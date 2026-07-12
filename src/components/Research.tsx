@@ -151,6 +151,25 @@ export default function Research() {
             );
           })}
         </div>
+
+        {/* Google Scholar CTA */}
+        <div className={`animate-item fade-up ${revealed ? "visible" : ""} mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 rounded-2xl border border-[#E8E4DC] bg-white`}>
+          <div>
+            <p className="text-sm font-semibold text-[#0F0E0C]">3 peer-reviewed publications · 21 total citations</p>
+            <p className="text-xs text-[#9C958C] mt-0.5">IEEE ICCCNT, IEEE ICCPCT, IJACSA</p>
+          </div>
+          <a
+            href="https://scholar.google.com/citations?user=43Hpn2cAAAAJ&hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#4361EE] text-white text-sm font-medium hover:-translate-y-0.5 hover:shadow-lg transition-all flex-shrink-0"
+          >
+            <svg viewBox="0 0 24 24" width={15} height={15} fill="currentColor">
+              <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5 12 0z"/>
+            </svg>
+            View on Google Scholar
+          </a>
+        </div>
       </div>
 
       <style jsx>{`

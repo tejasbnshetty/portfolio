@@ -16,7 +16,7 @@ const experiences = [
     accent: "#FF6B35",
     link: "https://bardar.online",
     details: [
-      "Engineered the entire NestJS backend from scratch, owning 10+ REST APIs across artist discovery, geo-sync, genre filtering, bookmarking, and head-to-head comparison.",
+      "Engineered the entire NestJS backend from scratch, owning 10+ REST APIs across artist discovery, geo-sync, genre filtering, and head-to-head comparison, integrated with source APIs and deployed on Heroku via CI/CD pipelines.",
       "Designed the Bardar Score — a custom log-scaled algorithm that ranks thousands of artists across any city globally without re-normalisation.",
       "Architected a priority task queue and per-API rate limiter to orchestrate concurrent external API calls, reducing search latency by 20–30% and eliminating pipeline breakage under concurrent load.",
       "Led end-to-end integration of an agentic AI chatbot (Gemini 2.5 Flash) with access to all backend tool calls, enabling natural language artist discovery with dynamically rendered rich UI cards.",
@@ -36,6 +36,18 @@ const experiences = [
       "Built YOLO-based computer vision pipelines for production line quality control — automatically detecting assembly errors and container defects, cutting error rates by 60%.",
       "Worked on complex PostgreSQL query optimisation to improve data accessibility for production teams.",
       "Designed real-time monitoring pipelines to support faster operational decision making.",
+    ],
+  },
+  {
+    role: "Undergraduate Research Intern (Data Science)",
+    company: "Indian Space Research Organisation (ISRO) · M.S. Ramaiah",
+    date: "Feb 2023 – Feb 2024",
+    desc: "Designed and deployed ML models to optimise satellite mission operations, achieving a 30% increase in operational efficiency and predicting part failures with 85% accuracy.",
+    accent: "#EF476F",
+    link: null,
+    details: [
+      "Designed and deployed ML models (CNNs, Autoencoders, Random Forest) across 50+ configurations to optimise satellite mission operations, achieving a 30% increase in operational efficiency.",
+      "Developed predictive maintenance workflows using Expert Systems and ML to detect satellite part failures with 85% accuracy, reducing maintenance downtime by 25%.",
     ],
   },
   {
@@ -110,7 +122,7 @@ export default function Experience() {
         {/* Timeline */}
         <div className="relative pl-8">
           {/* Vertical line */}
-          <div className="absolute left-[11px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-[#FF6B35] via-[#4361EE] to-[#06D6A0] rounded-full" />
+          <div className="absolute left-[11px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-[#FF6B35] via-[#4361EE] via-[#EF476F] to-[#06D6A0] rounded-full" />
 
           {experiences.map((exp, i) => {
             const isOpen = openIdx === i;

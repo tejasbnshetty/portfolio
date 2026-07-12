@@ -42,7 +42,7 @@ const skillGroups = [
     color: "#EF476F",
     bg: "#FEE8EF",
     blurb: "Day-to-day tooling for shipping, testing and keeping projects maintainable.",
-    skills: ["Git", "Docker", "CI/CD", "Android Studio", "Postman"],
+    skills: ["Git", "Docker", "CI/CD", "GitHub Actions", "Jira", "Android Studio", "Postman"],
   },
 ];
 
