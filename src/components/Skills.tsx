@@ -13,7 +13,7 @@ const skillGroups = [
     label: "Languages",
     color: "#FF6B35",
     bg: "#FFF2ED",
-    blurb: "The languages I reach for day to day, from systems-y backend work to quick scripting.",
+    blurb: "The languages I reach for day to day, from backend work to quick scripting.",
     skills: ["Java", "Python", "TypeScript", "JavaScript", "Kotlin", "SQL / PostgreSQL", "HTML / CSS"],
   },
   {
@@ -34,14 +34,14 @@ const skillGroups = [
     label: "AI & ML",
     color: "#7B2FBE",
     bg: "#F3EAFF",
-    blurb: "The AI/ML side of my work — both applied integrations and published research.",
+    blurb: "The AI/ML side of my work. Both applied integrations and published research.",
     skills: ["Gemini API", "Hugging Face", "YOLO", "CNNs", "NLP", "OCR"],
   },
   {
     label: "Tools",
     color: "#EF476F",
     bg: "#FEE8EF",
-    blurb: "Day-to-day tooling for shipping, testing and keeping projects maintainable.",
+    blurb: "Day to day tooling for shipping, testing and keeping projects maintainable.",
     skills: ["Git", "Docker", "CI/CD", "GitHub Actions", "Jira", "Android Studio", "Postman"],
   },
 ];

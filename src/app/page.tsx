@@ -5,6 +5,7 @@ import Experience from "@/components/Experience";
 import Education from "@/components/Education";
 import Skills from "@/components/Skills";
 import Research from "@/components/Research";
+// import Extras from "@/components/Extras";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import PageBurst from "@/components/PageBurst";
@@ -25,6 +26,7 @@ export default function Home() {
       <Education />
       <Skills />
       <Research />
+      {/* <Extras /> */}
       <Footer />
     </main>
   );

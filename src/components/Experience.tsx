@@ -17,7 +17,7 @@ const experiences = [
     link: "https://bardar.online",
     details: [
       "Engineered the entire NestJS backend from scratch, owning 10+ REST APIs across artist discovery, geo-sync, genre filtering, and head-to-head comparison, integrated with source APIs and deployed on Heroku via CI/CD pipelines.",
-      "Designed the Bardar Score — a custom log-scaled algorithm that ranks thousands of artists across any city globally without re-normalisation.",
+      "Designed the Bardar Score: a custom log-scaled algorithm that ranks thousands of artists across any city globally without re-normalisation.",
       "Architected a priority task queue and per-API rate limiter to orchestrate concurrent external API calls, reducing search latency by 20–30% and eliminating pipeline breakage under concurrent load.",
       "Led end-to-end integration of an agentic AI chatbot (Gemini 2.5 Flash) with access to all backend tool calls, enabling natural language artist discovery with dynamically rendered rich UI cards.",
       "Integrated multiple third-party music APIs (MusicBrainz, Last.fm, Fanart.tv) for artist data, images, and popularity metrics.",
@@ -33,7 +33,7 @@ const experiences = [
     link: null,
     details: [
       "Delivered Python/Flask backend APIs and a QR-based inventory system to automate chip fabrication inventory workflows, reducing processing time by 25%.",
-      "Built YOLO-based computer vision pipelines for production line quality control — automatically detecting assembly errors and container defects, cutting error rates by 60%.",
+      "Built YOLO-based computer vision pipelines for production line quality control. This enabled automatic detection of assembly errors and container defects, cutting error rates by 60%.",
       "Worked on complex PostgreSQL query optimisation to improve data accessibility for production teams.",
       "Designed real-time monitoring pipelines to support faster operational decision making.",
     ],
@@ -58,7 +58,7 @@ const experiences = [
     accent: "#06D6A0",
     link: null,
     details: [
-      "First professional software role — built the onboarding flows new users see when registering for the first time.",
+      "First professional software role. Built the onboarding flows new users see when registering for the first time.",
       "Simplified the registration process, improving user engagement by 40%.",
       "Automated 90% of QA testing workflows, drastically reducing manual testing effort.",
       "Cut daily bug reports to under 2 per week through systematic test coverage.",

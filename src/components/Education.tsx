@@ -21,9 +21,9 @@ const degrees = [
     // Drop a file named anu.png (or .jpg, .webp) into public/ to use it
     logo: "/anu.png",
     highlights: [
-      "One of Australia's top-ranked research universities.",
+      "One of Australia's top ranked research universities.",
       "Coursework: AI, Advanced Topics in AI, Software Construction, Relational Databases, HCI, and Document Analysis.",
-      "Industry capstone (Bardar) delivered real-world engineering experience with an actual client.",
+      "Industry capstone (Bardar) delivered real world engineering experience with an actual client.",
       "Worked in a dev team using Git workflows, code reviews, and CI/CD pipelines.",
     ],
   },
@@ -31,7 +31,7 @@ const degrees = [
     abbr: "MSRIT",
     institution: "M.S. Ramaiah Institute of Technology",
     location: "Bengaluru, KA",
-    degree: "Bachelor of Engineering — Computer Science",
+    degree: "Bachelor of Engineering and Computer Science",
     spec: null,
     period: "Nov 2020 – May 2024",
     gpa: "GPA: 8.36 / 10 — First Class with Distinction",

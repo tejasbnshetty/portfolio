@@ -15,7 +15,7 @@ const publications = [
     badgeColor: "#4361EE",
     badgeBg: "#EEF1FF",
     abstract:
-      "Presents Nutricate, an Android app that pairs on-device OCR with a personal allergen profile to flag unsafe ingredients in real time, removing the need to manually parse dense food labels.",
+      "The increase in the prevalence of food allergies is a concerning issue in today’s world. According to some estimates, 3 percent of Indians may already have food allergies, the majority under 40 years of age. Food allergies cause roughly 30,000 emergency treatments and 100 to 200 deaths per year in the nation. Additionally, there is a lack of awareness and understanding of food allergies in India, which can lead to delayed diagnosis and treatment. This brings in a need for technology-based solutions to help individuals who have food allergies to identify allergens in their food and to make conscious and informed decisions in their day-to-day consumption of food. This research paper presents an application that helps people with food allergies and intolerances identify potential allergens in packaged foods. The scope of the project involves the integration of multiple technologies wherein the app utilizes optical character recognition (OCR) from the Firebase API to extract the name of the food from a picture taken by the user, and then cross-references the name with a dataset of allergen information. The application provides a user-friendly interface that is easy to navigate and provides clear alerts, Our application is specifically designed to ensure that the user is thoroughly informed of the contents of their food. This brings a revolutionary aspect to dietary consumption by allowing users to have the freedom of consuming their food of choice without having to worry about their allergies and other side effects. In conclusion, this paper demonstrates the successful development and implementation of an Android application that can help in improving the lives of millions of people worldwide who suffer from food allergies and intolerances and can be further developed and customized to meet specific user needs.",
   },
   {
     venue: "IEEE ICCPCT 2023",
@@ -24,7 +24,7 @@ const publications = [
     badgeColor: "#059669",
     badgeBg: "#E8F8F2",
     abstract:
-      "Proposes a privacy-preserving pipeline for detecting emotion in customer feedback, balancing model accuracy against techniques that limit exposure of identifiable customer data.",
+      "This study showcases a technique that employs machine learning algorithmic techniques and emotion recognition to analyze client feedback, thereby improving the overall customer experience. To comprehend the wants of customers as well as their opinions about the company's products is crucial for a corporation to understand the market. There is a growing need to accurately gather feedback from clients. To address the demand for precise feedback analysis, we decided to concentrate on this problem. While offering insightful data on their attitudes and feedback, the suggested strategy protects client privacy. Describing the difficulties in assessing consumer feedback from image data on their faces, the study explains the idea of privacy preservation in machine learning. While clients provide feedback, emotions are extracted from their photos using face detection techniques, and then machine learning algorithms are applied for emotion analysis. To protect privacy, the strategy employs data anonymization techniques such as differential privacy and k-anonymity. By offering justifications and results, the project demonstrates how the suggested strategy enhances customer experience while protecting privacy. The information generated from visuals and emotions is much more accurate and representative of the client's genuine opinions when compared to the more conventional techniques of gathering customer feedback. Companies seeking to enhance customer satisfaction while safeguarding their privacy could benefit greatly from the project's findings.",
   },
   {
     venue: "IJACSA Vol. 14, 2023",
@@ -33,7 +33,7 @@ const publications = [
     badgeColor: "#7B2FBE",
     badgeBg: "#F3EAFF",
     abstract:
-      "Evaluates deep learning architectures for real-time detection and filtering of explicit web content, with an emphasis on minimising false negatives in safety-critical filtering systems.",
+      "In today's digital age, the vast expanse of online content has made it increasingly accessible for users to encounter inappropriate text, images and videos. The repercussions of such exposure are concerning, impacting individuals and society adversely. Exposure to violent content can lead to undesirable human emotions, including desensitization, aggression, and other harmful effects. We utilize a machine learning approach aimed at real-time violence detection in text, images and videos embedded in the website. The foundation of this approach lies in a deep learning model, highly trained on a vast dataset of manually labeled images categorized as violent or non-violent. The model boasts exceptional accuracy in identifying violence in images, subsequently filter out violent content from online platforms. By performing all processing intensive tasks in the Cloud, and storing the data in a database, an improved user experience is achieved by completing all the necessary detection processes at a lower time frame, and also reducing the processing load on the user’s local system. The detection of the violent videos is done by a CNN model, which was trained on violent and non-violent video data, and the detection of emotions in the text is taken in by a NLP based algorithm. By implementing this highly efficient approach, web safety can undergo a significant improvement. Users can now navigate the web with confidence, free from concerns about accidentally encountering violent content, fostering improved mental health, and cultivating a more positive online environment. We are able to achieve 67% accuracy in detecting violent content at approximately 2.5 seconds at its best scenario.",
   },
 ];
 
@@ -156,7 +156,7 @@ export default function Research() {
         <div className={`animate-item fade-up ${revealed ? "visible" : ""} mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 rounded-2xl border border-[#E8E4DC] bg-white`}>
           <div>
             <p className="text-sm font-semibold text-[#0F0E0C]">3 peer-reviewed publications · 21 total citations</p>
-            <p className="text-xs text-[#9C958C] mt-0.5">IEEE ICCCNT, IEEE ICCPCT, IJACSA</p>
+            <p className="text-xs text-[#9C958C] mt-0.5">IEEE and IJACSA</p>
           </div>
           <a
             href="https://scholar.google.com/citations?user=43Hpn2cAAAAJ&hl=en"

@@ -35,10 +35,10 @@ const projects = [
     coverAlt: "Bardar — your city's music scene, in one view",
     portrait: false,
     highlights: [
-      "Designed the Bardar Score — a custom log-scaled algorithm that ranks thousands of artists across any city globally without re-normalisation.",
+      "Designed the Bardar Score: a custom log-scaled algorithm that ranks thousands of artists across any city globally without re-normalisation.",
       "Owned 10+ REST APIs covering artist discovery, geo-sync, genre filtering, bookmarking, and head-to-head comparison, integrated with MusicBrainz, Last.fm and Fanart.tv.",
       "Architected a priority task queue and per-API rate limiter so user-facing requests always preempt background sync jobs, reducing search latency by 20–30%.",
-      "Led end-to-end integration of an agentic AI chatbot (Gemini 2.5 Flash) with access to all backend tool calls, enabling natural language queries like 'top jazz artists in Sydney?' with fully interactive results.",
+      "Led end-to-end integration of an agentic AI chatbot (using Gemini 2.5 Flash) with access to all backend tool calls, enabling natural language queries like 'top jazz artists in Sydney?' with fully interactive results.",
       "Contributed to the Next.js frontend including several pages and a real-time sync progress UI.",
     ],
     screens: [
@@ -67,7 +67,7 @@ const projects = [
       "Solves a real problem: people with food allergies struggle to quickly verify if packaged products are safe.",
       "Uses OCR to scan food product labels directly from the phone camera, extracts ingredient text and cross-checks against a user-defined personal allergen database.",
       "Delivers instant alerts if an unsafe ingredient is detected.",
-      "Built natively in Android/Java with Firebase and SQLite — designed to be fast, offline-friendly, and accessible to non-technical users.",
+      "Built natively in Android/Java with Firebase and SQLite. It is designed to be fast, offline friendly, and accessible to non-technical users.",
     ],
     screens: [
       { src: "/nutricate-scan.png", alt: "Food Label OCR Scan" },
@@ -92,7 +92,7 @@ const projects = [
     portrait: true,
     highlights: [
       "Built to address fragmented government vehicle management and public query systems.",
-      "Unified platform with separate user and admin portals — users submit service requests, track status, and resolve queries in one place.",
+      "Unified platform with separate user and admin portals. Users submit service requests, track status, and resolve queries in one place.",
       "Admins manage and resolve requests from a dedicated dashboard.",
       "Integrated a Hugging Face LLM chatbot to automate responses to common queries, significantly reducing manual overhead for admin staff.",
     ],
