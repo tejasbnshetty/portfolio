@@ -21,7 +21,7 @@ const projects = [
   {
     name: "Bardar",
     role: "ANU TechLauncher Capstone",
-    desc: "Location-based music artist discovery platform. I owned the entire NestJS backend — 10+ REST APIs, a custom scoring algorithm, a priority task queue with rate limiting, and an agentic AI chatbot with 11 tool calls powered by Gemini 2.5 Flash.",
+    desc: "Location-based music artist discovery platform. I owned the entire NestJS backend: 10+ REST APIs, a custom scoring algorithm, a priority task queue with rate limiting, and an agentic AI chatbot with 11 tool calls powered by Gemini 2.5 Flash.",
     tags: ["NestJS", "Next.js", "TypeScript", "Supabase", "Gemini AI", "Heroku"],
     link: "https://bardar.online",
     github: null,
