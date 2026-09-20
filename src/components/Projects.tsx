@@ -4,6 +4,8 @@ import { Syne } from "next/font/google";
 import FloatingIcons from "./FloatingIcons";
 import RevealPanel from "./RevealPanel";
 import Lightbox from "./Lightbox";
+import ProjectShowcase from "./ProjectShowcase";
+import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion";
 import {
   ChevronDownIcon,
   CodeIcon,
@@ -35,6 +37,7 @@ type Project = {
   metrics?: { value: string; label: string }[];
   highlights: string[];
   screens: Screen[];
+  video?: string;
 };
 
 const bardar: Project = {
@@ -123,6 +126,8 @@ const secondary: Project[] = [
     ],
   },
 ];
+
+const panels: Project[] = [bardar, ...secondary];
 
 const bgIcons = [
   { Icon: CodeIcon,     top: "5%",  left: "88%", size: 34, color: "#FF6B35", delay: 0,   duration: 7 },
@@ -451,6 +456,7 @@ export default function Projects() {
   const [origin, setOrigin] = useState({ x: 50, y: 0 });
   const [revealed, setRevealed] = useState(false);
   const [lightbox, setLightbox] = useState<{ images: Screen[]; index: number } | null>(null);
+  const reducedMotion = usePrefersReducedMotion();
 
   function toggle(key: string, e: React.MouseEvent<HTMLButtonElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -474,10 +480,10 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="work" ref={sectionRef} data-cursor-theme="work" className="relative py-20 w-full overflow-hidden">
+    <section id="work" ref={sectionRef} data-cursor-theme="work" className="relative py-20 w-full">
       <FloatingIcons icons={bgIcons} />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-7">
+      <div className={`relative z-10 max-w-4xl mx-auto px-7 ${reducedMotion ? "" : "lg:hidden"}`}>
         <div className={`animate-item fade-up ${revealed ? "visible" : ""} flex items-center gap-4 mb-4`}>
           <span className="text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full bg-[var(--tint-orange)] text-[var(--c1-text)]">
             Selected work
@@ -515,6 +521,25 @@ export default function Projects() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className={`relative z-10 ${reducedMotion ? "hidden" : "hidden lg:block"}`}>
+        <div className="max-w-6xl mx-auto px-[6vw] mb-8">
+          <div className={`animate-item fade-up ${revealed ? "visible" : ""} flex items-center gap-4 mb-4`}>
+            <span className="text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full bg-[var(--tint-orange)] text-[var(--c1-text)]">
+              Selected work
+            </span>
+            <h2 className={`${syne.className} text-3xl font-bold text-[#0F0E0C]`}>Things I&apos;ve built</h2>
+          </div>
+          <p className={`animate-item fade-up ${revealed ? "visible" : ""} text-sm text-[#5A5650] max-w-lg`}>
+            Real engineering work — a live product, an award-winning app, and a system that
+            replaced a government paper trail.
+          </p>
+        </div>
+        <ProjectShowcase
+          panels={panels}
+          onLightbox={(images, si) => setLightbox({ images, index: si })}
+        />
       </div>
 
       {lightbox && (
