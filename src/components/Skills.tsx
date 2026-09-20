@@ -2,9 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Syne } from "next/font/google";
 import FloatingIcons from "./FloatingIcons";
-import MagneticIcon from "./MagneticIcon";
-import RevealPanel from "./RevealPanel";
-import { ChevronDownIcon, LayersIcon, CpuIcon, CloudIcon, BrainIcon, WrenchIcon, iconForTag } from "./icons/Icons";
+import { LayersIcon, CpuIcon, CloudIcon, BrainIcon, WrenchIcon, iconForTag } from "./icons/Icons";
 
 const syne = Syne({ subsets: ["latin"], weight: ["700", "800"] });
 
@@ -12,35 +10,30 @@ const skillGroups = [
   {
     label: "Languages",
     color: "#FF6B35",
-    bg: "#FFF2ED",
     blurb: "The languages I reach for day to day, from backend work to quick scripting.",
     skills: ["Java", "Python", "TypeScript", "JavaScript", "Kotlin", "SQL / PostgreSQL", "HTML / CSS"],
   },
   {
     label: "Frameworks",
     color: "#4361EE",
-    bg: "#EEF1FF",
     blurb: "Frameworks I've shipped production or research code with, on the backend and the front.",
     skills: ["NestJS", "Next.js", "React", "Node.js", "Flask", "PyTorch", "TensorFlow", "JavaFX"],
   },
   {
     label: "Cloud & Hosting",
     color: "#06D6A0",
-    bg: "#E8F8F2",
     blurb: "Where the things I build actually run, from hobby deploys to client infrastructure.",
     skills: ["AWS", "Vercel", "Heroku", "Firebase", "Supabase", "GCP"],
   },
   {
     label: "AI & ML",
     color: "#7B2FBE",
-    bg: "#F3EAFF",
-    blurb: "The AI/ML side of my work. Both applied integrations and published research.",
+    blurb: "The AI/ML side of my work — both applied integrations and published research.",
     skills: ["Gemini API", "Hugging Face", "YOLO", "CNNs", "NLP", "OCR"],
   },
   {
     label: "Tools",
     color: "#EF476F",
-    bg: "#FEE8EF",
     blurb: "Day to day tooling for shipping, testing and keeping projects maintainable.",
     skills: ["Git", "Docker", "CI/CD", "GitHub Actions", "Jira", "Android Studio", "Postman"],
   },
@@ -56,15 +49,10 @@ const bgIcons = [
 
 export default function Skills() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [openIdx, setOpenIdx] = useState<number | null>(null);
-  const [origin, setOrigin] = useState({ x: 50, y: 0 });
+  const tipRef = useRef<HTMLDivElement>(null);
   const [revealed, setRevealed] = useState(false);
-
-  function toggle(i: number, e: React.MouseEvent<HTMLButtonElement>) {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setOrigin({ x: ((e.clientX - rect.left) / rect.width) * 100, y: 0 });
-    setOpenIdx(openIdx === i ? null : i);
-  }
+  const [hoverGroup, setHoverGroup] = useState<number | null>(null);
+  const [tappedGroup, setTappedGroup] = useState<number | null>(null);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -84,92 +72,110 @@ export default function Skills() {
     return () => obs.disconnect();
   }, []);
 
+  function onMove(e: React.MouseEvent) {
+    const tip = tipRef.current;
+    const host = sectionRef.current;
+    if (!tip || !host) return;
+    const r = host.getBoundingClientRect();
+    tip.style.transform = `translate(${e.clientX - r.left + 16}px, ${e.clientY - r.top + 16}px)`;
+  }
+
   return (
-    <section id="skills" ref={sectionRef} data-cursor-theme="skills" className="relative py-20 w-full overflow-hidden">
+    <section
+      id="skills"
+      ref={sectionRef}
+      data-cursor-theme="skills"
+      onMouseMove={onMove}
+      className="relative py-20 w-full overflow-hidden"
+    >
       <FloatingIcons icons={bgIcons} />
 
       <div className="relative z-10 max-w-4xl mx-auto px-7">
-        {/* Section header */}
-        <div className={`animate-item fade-up ${revealed ? "visible" : ""} flex items-center gap-4 mb-12`}>
-          <span className="text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full bg-[#E8F8F2] text-[#059669]">
+        <div className={`s-item ${revealed ? "in" : ""} flex items-center gap-4 mb-4`}>
+          <span className="text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full bg-[var(--tint-green)] text-[var(--c3-text)]">
             What I use
           </span>
-          <h2 className={`${syne.className} text-3xl font-bold text-[#0F0E0C]`}>
-            Skills
-          </h2>
+          <h2 className={`${syne.className} text-3xl font-bold text-[#0F0E0C]`}>Technical stack</h2>
         </div>
+        <p className={`s-item ${revealed ? "in" : ""} text-sm text-[#5A5650] max-w-lg mb-12`}>
+          Hover a chip to see where it fits. Grouped by how I actually use them.
+        </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
+        <div className="flex flex-col divide-y divide-[#E8E4DC]/70">
           {skillGroups.map((group, i) => {
-            const isOpen = openIdx === i;
+            const dimmed = hoverGroup !== null && hoverGroup !== i;
             return (
               <div
                 key={group.label}
-                className={`animate-item fade-up ${revealed ? "visible" : ""} bg-white border border-[#E8E4DC] rounded-2xl overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-shadow duration-400`}
-                style={{
-                  transitionDelay: i * 0.08 + "s",
-                  ...(isOpen ? { boxShadow: `0 0 0 3px ${group.color}22, 0 12px 32px -8px ${group.color}33` } : {}),
-                }}
+                className={`s-item ${revealed ? "in" : ""} py-5`}
+                style={{ transitionDelay: `${Math.min(i, 5) * 0.03}s` }}
+              >
+              <div
+                className="grid grid-cols-1 sm:grid-cols-[150px_1fr] gap-2 sm:gap-6 transition-opacity duration-300"
+                style={{ opacity: dimmed ? 0.35 : 1 }}
               >
                 <button
                   type="button"
-                  onClick={(e) => toggle(i, e)}
-                  aria-expanded={isOpen}
-                  className="relative w-full text-left p-5 cursor-pointer"
+                  onClick={() => setTappedGroup((p) => (p === i ? null : i))}
+                  aria-expanded={tappedGroup === i}
+                  className="text-xs font-bold uppercase tracking-widest pt-1.5 text-left cursor-pointer"
+                  style={{ color: group.color }}
                 >
-                  <div className="flex items-start justify-between gap-2 mb-4">
-                    <div
-                      className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full w-fit"
-                      style={{ background: group.bg, color: group.color }}
-                    >
-                      {group.label}
-                    </div>
-                    <span
-                      className="flex items-center justify-center w-7 h-7 rounded-full border transition-all duration-400 flex-shrink-0"
-                      style={{
-                        borderColor: group.color,
-                        color: isOpen ? "#fff" : group.color,
-                        background: isOpen ? group.color : "transparent",
-                        transform: isOpen ? "rotate(225deg) scale(1.08)" : "rotate(0deg) scale(1)",
-                      }}
-                    >
-                      <ChevronDownIcon width={14} height={14} />
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {group.skills.map((skill) => {
-                      const SkillIcon = iconForTag(skill);
-                      return (
-                        <span
-                          key={skill}
-                          className="text-xs font-medium pl-2 pr-2.5 py-1 rounded-full border border-[#E8E4DC] text-[#5A5650] inline-flex items-center gap-1.5 hover:border-current transition-colors cursor-default"
-                        >
-                          <MagneticIcon Icon={SkillIcon} size={12} range={5} style={{ color: group.color }} />
-                          {skill}
-                        </span>
-                      );
-                    })}
-                  </div>
+                  {group.label}
                 </button>
-
-                <RevealPanel open={isOpen} origin={origin}>
-                  <div className="px-5 pb-5 pt-1 border-t" style={{ borderColor: group.color + "33" }}>
-                    <p className="text-sm text-[#5A5650] leading-relaxed mt-4">{group.blurb}</p>
-                  </div>
-                </RevealPanel>
+                <div className="flex flex-wrap gap-2">
+                  {group.skills.map((skill) => {
+                    const SkillIcon = iconForTag(skill);
+                    return (
+                      <span
+                        key={skill}
+                        onMouseEnter={() => setHoverGroup(i)}
+                        onMouseLeave={() => setHoverGroup(null)}
+                        className="chip text-xs font-medium pl-2 pr-3 py-1.5 rounded-full border border-[#E8E4DC] bg-white/70 text-[#5A5650] inline-flex items-center gap-1.5 transition-all duration-200 cursor-default"
+                        style={
+                          hoverGroup === i
+                            ? { borderColor: group.color, color: "#0F0E0C", transform: "translateY(-2px)" }
+                            : undefined
+                        }
+                      >
+                        <SkillIcon width={12} height={12} strokeWidth={1.8} style={{ color: group.color }} />
+                        {skill}
+                      </span>
+                    );
+                  })}
+                </div>
+                {tappedGroup === i && (
+                  <p className="sm:col-start-2 text-xs leading-relaxed text-[#5A5650] -mt-1">
+                    {group.blurb}
+                  </p>
+                )}
+              </div>
               </div>
             );
           })}
         </div>
       </div>
 
+      {/* Cursor-following tooltip */}
+      <div
+        ref={tipRef}
+        className="pointer-events-none absolute top-0 left-0 z-20 max-w-[240px] rounded-xl px-3 py-2 text-xs leading-relaxed text-white shadow-lg transition-opacity duration-200"
+        style={{
+          background: hoverGroup !== null ? skillGroups[hoverGroup].color : "#0F0E0C",
+          opacity: hoverGroup !== null ? 1 : 0,
+        }}
+      >
+        {hoverGroup !== null ? skillGroups[hoverGroup].blurb : ""}
+      </div>
+
       <style jsx>{`
-        .animate-item {
+        .s-item {
           opacity: 0;
-          transition: opacity 0.6s ease, transform 0.6s ease;
+          transform: translateY(12px);
+          transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .fade-up { transform: translateY(28px); }
-        .animate-item.visible {
+        .s-item.in {
           opacity: 1;
           transform: translateY(0);
         }

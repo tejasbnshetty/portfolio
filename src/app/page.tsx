@@ -1,11 +1,11 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import PersonalSnapshot from "@/components/PersonalSnapshot";
 import Projects from "@/components/Projects";
-import Experience from "@/components/Experience";
-import Education from "@/components/Education";
+import EngineeringImpact from "@/components/EngineeringImpact";
+import Journey from "@/components/Journey";
 import Skills from "@/components/Skills";
 import Research from "@/components/Research";
-// import Extras from "@/components/Extras";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import PageBurst from "@/components/PageBurst";
@@ -21,12 +21,12 @@ export default function Home() {
       <Blobs />
       <Navbar />
       <Hero />
+      <PersonalSnapshot />
+      <Journey />
+      <EngineeringImpact />
       <Projects />
-      <Experience />
-      <Education />
       <Skills />
       <Research />
-      {/* <Extras /> */}
       <Footer />
     </main>
   );

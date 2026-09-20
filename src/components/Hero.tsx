@@ -44,6 +44,12 @@ export default function Hero() {
         {/* ── Text ── */}
         <div className="flex-1 flex flex-col">
 
+        {/* Status */}
+        <div className="hero-status inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full border border-[#E8E4DC] bg-white/60 backdrop-blur-sm text-xs font-medium text-[#5A5650] mb-5">
+          <span className="w-2 h-2 rounded-full bg-[#06D6A0] hero-live" />
+          Master of Computing @ ANU · open to work
+        </div>
+
         {/* Headline */}
         <h1 className={`${syne.className} text-[clamp(48px,8vw,80px)] font-black leading-none mb-5`}>
           <span className="block text-[#0F0E0C] hero-line1">Hey, I&apos;m Tejas.</span>
@@ -53,7 +59,7 @@ export default function Hero() {
         {/* Description */}
         <p className="hero-desc text-lg text-[#5A5650] max-w-xl leading-relaxed mb-9">
           <strong className="text-[#0F0E0C] font-medium">Software developer based in Canberra.</strong><br />
-          Fresh Master of Computing graduate from ANU, specialising in AI. I build backend systems, ship AI integrations, and occasionally publish research. I pick up new tools quickly. Whether that's a new framework, a cloud platform, or a production bug at 2am.
+          Fresh Master of Computing graduate from ANU, specialising in AI. I build backend systems, ship AI integrations, and occasionally publish research &mdash; then care just as much about how the work is presented.
         </p>
 
         {/* Buttons */}
@@ -147,6 +153,14 @@ export default function Hero() {
           0%, 100% { background-position: 0%; }
           50% { background-position: 100%; }
         }
+        .hero-status { opacity: 0; transform: translateY(28px); transition: all 0.6s 0.05s ease; }
+        .hero-live { animation: heroLivePulse 2.4s ease-out infinite; }
+        @keyframes heroLivePulse {
+          0% { box-shadow: 0 0 0 0 rgba(6,214,160,0.5); }
+          70% { box-shadow: 0 0 0 8px rgba(6,214,160,0); }
+          100% { box-shadow: 0 0 0 0 rgba(6,214,160,0); }
+        }
+        @media (prefers-reduced-motion: reduce) { .hero-live { animation: none; } }
         .hero-line1 { opacity: 0; transform: translateY(28px); transition: all 0.6s 0.1s ease; }
         .hero-line2 { opacity: 0; transform: translateY(28px); transition: all 0.6s 0.2s ease; }
         .hero-desc { opacity: 0; transform: translateY(28px); transition: all 0.6s 0.3s ease; }
@@ -162,6 +176,7 @@ export default function Hero() {
           0%   { background-position: 0% 50%; }
           100% { background-position: 100% 50%; }
         }
+        .loaded .hero-status,
         .loaded .hero-line1,
         .loaded .hero-line2,
         .loaded .hero-desc,

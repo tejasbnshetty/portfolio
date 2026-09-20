@@ -8,14 +8,34 @@
   --bg: #F0ECE2;
   --ink: #0F0E0C;
   --ink-soft: #5A5650;
-  --ink-muted: #9C958C;
+  /* Decorative/border-only shade — too low-contrast for real text (~2.5:1 on --bg). */
+  --ink-faint: #9C958C;
+  /* Meta/caption text shade — darkened from the old --ink-muted value to clear 4.5:1. */
+  --ink-muted: #6E6960;
   --border: #E8E4DC;
-  --c1: #FF6B35;
-  --c2: #4361EE;
-  --c3: #06D6A0;
-  --c4: #FFD166;
-  --c5: #EF476F;
-  --c6: #7B2FBE;
+  --c1: #FF6B35; /* orange */
+  --c2: #4361EE; /* blue */
+  --c3: #06D6A0; /* green */
+  /* Decorative only (blobs, dots, icon fills) — cannot clear 4.5:1 as text against --bg
+     at any reasonable weight. Never use as text color. */
+  --c4: #FFD166; /* yellow */
+  --c5: #EF476F; /* pink */
+  --c6: #7B2FBE; /* purple */
+
+  /* Text-safe darker siblings — use for text/badge-text only, never for icon fills,
+     borders, blobs, dots, or gradients, where the vivid primitive above is correct. */
+  --c1-text: #C2410C;
+  --c2-text: #4338CA;
+  --c3-text: #047857;
+  --c5-text: #BE123C;
+  --c6-text: #7B2FBE;
+
+  /* Tinted badge backgrounds, centralized (previously duplicated per component). */
+  --tint-orange: #FFF2ED;
+  --tint-blue: #EEF1FF;
+  --tint-green: #E8F8F2;
+  --tint-purple: #F3EAFF;
+  --tint-pink: #FEE8EF;
 }
 
 html {
@@ -60,6 +80,29 @@ body {
 body.custom-cursor-active,
 body.custom-cursor-active * {
   cursor: none !important;
+}
+
+/* Kill the ~300ms synthetic-click delay on touch devices for every real control. */
+button, a {
+  touch-action: manipulation;
+}
+
+/* Shared "half-flipped switch" hover: the card hinges back from its bottom
+   edge, tipping slightly away from the viewer. Used across the project and
+   journey cards so the whole page shares one tactile response. */
+.card-tilt {
+  transform-origin: 50% 100%;
+  transition: transform 0.3s cubic-bezier(0.34, 1.32, 0.64, 1),
+    box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.card-tilt:hover {
+  transform: perspective(1100px) rotateX(6deg) scale(0.99);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-tilt,
+  .card-tilt:hover {
+    transform: none;
+  }
 }
 
 /* Native scrollbar is hidden — replaced by the curving ScrollProgress
