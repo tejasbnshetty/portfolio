@@ -4,7 +4,13 @@ import { Syne } from "next/font/google";
 
 const syne = Syne({ subsets: ["latin"], weight: ["800"] });
 
-const links: string[] = ["Work", "Experience", "Education", "Research", "Contact"];
+const links: { label: string; href: string }[] = [
+  { label: "Journey", href: "#journey" },
+  { label: "Work", href: "#work" },
+  { label: "Stack", href: "#skills" },
+  { label: "Research", href: "#research" },
+  { label: "Contact", href: "#contact" },
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -38,19 +44,16 @@ export default function Navbar() {
         >
           TS
         </a>
-        <div className="flex gap-6">
-          {links.map((link: string) => {
-            const href = "#" + link.toLowerCase();
-            return (
-              <a
-                key={link}
-                href={href}
-                className="text-sm text-[#5A5650] hover:text-[#0F0E0C] transition-colors font-medium"
-              >
-                {link}
-              </a>
-            );
-          })}
+        <div className="flex gap-5 sm:gap-6">
+          {links.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="text-sm text-[#5A5650] hover:text-[#0F0E0C] transition-colors font-medium py-2 -my-2"
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       </div>
     </nav>

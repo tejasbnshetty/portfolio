@@ -12,11 +12,9 @@ export default function Lightbox({
   startIndex: number;
   onClose: () => void;
 }) {
+  // Lightbox is always conditionally mounted, so a fresh startIndex arrives
+  // as a fresh mount — no effect needed to sync it.
   const [idx, setIdx] = useState(startIndex);
-
-  useEffect(() => {
-    setIdx(startIndex);
-  }, [startIndex]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -63,7 +61,7 @@ export default function Lightbox({
         <button
           type="button"
           onClick={(e) => { e.stopPropagation(); setIdx((i) => (i - 1 + images.length) % images.length); }}
-          className="fixed left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/15 hover:bg-white/30 text-white text-2xl flex items-center justify-center transition-colors"
+          className="fixed left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 text-white text-2xl flex items-center justify-center transition-colors"
           aria-label="Previous"
         >
           ‹
@@ -75,7 +73,7 @@ export default function Lightbox({
         <button
           type="button"
           onClick={(e) => { e.stopPropagation(); setIdx((i) => (i + 1) % images.length); }}
-          className="fixed right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/15 hover:bg-white/30 text-white text-2xl flex items-center justify-center transition-colors"
+          className="fixed right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 text-white text-2xl flex items-center justify-center transition-colors"
           aria-label="Next"
         >
           ›
@@ -86,7 +84,7 @@ export default function Lightbox({
       <button
         type="button"
         onClick={onClose}
-        className="fixed top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center transition-colors text-lg"
+        className="fixed top-4 right-4 z-20 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 text-white flex items-center justify-center transition-colors text-lg"
         aria-label="Close"
       >
         ✕

@@ -9,10 +9,12 @@ const WAVES = [0, 0.15, 0.3];
 // Mirrors the per-section accent colors used elsewhere (CustomCursor, card accents)
 const THEME_COLORS: Record<string, string> = {
   hero: "#FF6B35",
+  snapshot: "#EF476F",
   work: "#FF6B35",
+  impact: "#06D6A0",
   experience: "#4361EE",
-  research: "#7B2FBE",
-  skills: "#06D6A0",
+  skills: "#7B2FBE",
+  research: "#EF476F",
   default: "#0F0E0C",
 };
 

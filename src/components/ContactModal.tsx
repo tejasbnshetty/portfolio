@@ -111,7 +111,7 @@ export default function ContactModal({ open, onClose }: { open: boolean; onClose
                 {c.icon}
               </span>
               <span>
-                <span className="block text-[11px] font-semibold uppercase tracking-wider text-[#9C958C]">
+                <span className="block text-[11px] font-semibold uppercase tracking-wider text-[var(--ink-muted)]">
                   {c.label}
                 </span>
                 <span className="block text-sm font-medium text-[#0F0E0C]">{c.value}</span>

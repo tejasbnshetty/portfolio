@@ -38,7 +38,7 @@ const publications = [
 ];
 
 const bgIcons = [
-  { Icon: FlaskIcon, top: "10%", left: "6%", size: 28, color: "#7B2FBE", delay: 0.4, duration: 8 },
+  { Icon: FlaskIcon, top: "10%", left: "6%", size: 28, color: "#EF476F", delay: 0.4, duration: 8 },
   { Icon: BookIcon, top: "60%", left: "92%", size: 26, color: "#4361EE", delay: 1.2, duration: 7 },
   { Icon: FlaskIcon, top: "85%", left: "10%", size: 22, color: "#059669", delay: 2, duration: 9 },
 ];
@@ -80,7 +80,7 @@ export default function Research() {
       <div className="relative z-10 max-w-4xl mx-auto px-7">
         {/* Section header */}
         <div className={`animate-item fade-up ${revealed ? "visible" : ""} flex items-center gap-4 mb-12`}>
-          <span className="text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full bg-[#F3EAFF] text-[#7B2FBE]">
+          <span className="text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full bg-[var(--tint-pink)] text-[var(--c5-text)]">
             Academic work
           </span>
           <h2 className={`${syne.className} text-3xl font-bold text-[#0F0E0C]`}>
@@ -96,7 +96,7 @@ export default function Research() {
                 key={pub.venue}
                 className={`animate-item slide-up ${revealed ? "visible" : ""} bg-white border border-[#E8E4DC] rounded-2xl overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-shadow duration-400 group`}
                 style={{
-                  transitionDelay: i * 0.1 + "s",
+                  transitionDelay: Math.min(i, 5) * 0.03 + "s",
                   ...(isOpen ? { boxShadow: `0 0 0 3px ${pub.badgeColor}22, 0 12px 32px -8px ${pub.badgeColor}33` } : {}),
                 }}
               >
@@ -104,6 +104,7 @@ export default function Research() {
                   type="button"
                   onClick={(e) => toggle(i, e)}
                   aria-expanded={isOpen}
+                  data-cursor="read"
                   className="relative w-full text-left p-6 flex gap-5 items-start cursor-pointer"
                 >
                   <span
@@ -156,7 +157,7 @@ export default function Research() {
         <div className={`animate-item fade-up ${revealed ? "visible" : ""} mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 rounded-2xl border border-[#E8E4DC] bg-white`}>
           <div>
             <p className="text-sm font-semibold text-[#0F0E0C]">3 peer-reviewed publications · 21 total citations</p>
-            <p className="text-xs text-[#9C958C] mt-0.5">IEEE and IJACSA</p>
+            <p className="text-xs text-[var(--ink-muted)] mt-0.5">IEEE and IJACSA</p>
           </div>
           <a
             href="https://scholar.google.com/citations?user=43Hpn2cAAAAJ&hl=en"
@@ -175,10 +176,11 @@ export default function Research() {
       <style jsx>{`
         .animate-item {
           opacity: 0;
-          transition: opacity 0.6s ease, transform 0.6s ease;
+          transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+            transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .fade-up { transform: translateY(24px); }
-        .slide-up { transform: translateY(32px); }
+        .fade-up { transform: translateY(12px); }
+        .slide-up { transform: translateY(12px); }
         .animate-item.visible {
           opacity: 1;
           transform: translateY(0);
