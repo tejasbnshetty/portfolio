@@ -15,7 +15,7 @@ const syne = Syne({ subsets: ["latin"], weight: ["700", "800"] });
 /**
  * A compact "who I am at a glance" band that sits between the hero and the
  * work. Deliberately NOT built from the same white expandable cards the rest
- * of the page uses — it's an asymmetric bento grid on a tinted strip, so the
+ * of the page uses: it's an asymmetric bento grid on a tinted strip, so the
  * eye gets a change of rhythm straight after the hero.
  */
 export default function PersonalSnapshot() {
@@ -148,8 +148,7 @@ export default function PersonalSnapshot() {
           {/* Personality line — wide */}
           <Tile revealed={revealed} delay={0.15} className="col-span-2 md:col-span-4" plain>
             <p className="text-sm sm:text-base text-[#5A5650] leading-relaxed">
-              I pick up new tools fast — whether that&apos;s a new framework, a cloud
-              platform, or a{" "}
+              I pick up new tools fast, whether it&apos;s a new framework or a{" "}
               <span className="text-[#0F0E0C] font-medium">production bug at 2am</span>.
             </p>
           </Tile>

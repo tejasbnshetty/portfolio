@@ -52,7 +52,7 @@ const bardar: Project = {
   badge: "🟢 Live product",
   badgeClass: "text-[var(--c3-text)] bg-[var(--tint-green)]",
   cover: "/bardar-splash.png",
-  coverAlt: "Bardar — your city's music scene, in one view",
+  coverAlt: "Bardar: your city's music scene, in one view",
   portrait: false,
   metrics: [
     { value: "20–30%", label: "lower search latency" },
@@ -86,7 +86,7 @@ const secondary: Project[] = [
     badge: "🏆 Best Social Project · IISc Bengaluru",
     badgeClass: "text-[var(--c3-text)] bg-[var(--tint-green)]",
     cover: "/nutricate-splash.png",
-    coverAlt: "Nutricate — scan screen",
+    coverAlt: "Nutricate scan screen",
     portrait: true,
     highlights: [
       "Solves a real problem: people with food allergies struggle to quickly verify if packaged products are safe.",
@@ -110,7 +110,7 @@ const secondary: Project[] = [
     badge: null,
     badgeClass: "",
     cover: "/polirec-splash.png",
-    coverAlt: "PoliRec — streamlining citizen and vehicle records",
+    coverAlt: "PoliRec: streamlining citizen and vehicle records",
     portrait: true,
     highlights: [
       "Built to address fragmented government vehicle management and public query systems.",
@@ -491,7 +491,7 @@ export default function Projects() {
           <h2 className={`${syne.className} text-3xl font-bold text-[#0F0E0C]`}>Things I&apos;ve built</h2>
         </div>
         <p className={`animate-item fade-up ${revealed ? "visible" : ""} text-sm text-[#5A5650] max-w-lg mb-12`}>
-          Real engineering work — a live product, an award-winning app, and a system that
+          Real engineering work: a live product, an award-winning app, and a system that
           replaced a government paper trail.
         </p>
 
@@ -532,7 +532,7 @@ export default function Projects() {
             <h2 className={`${syne.className} text-3xl font-bold text-[#0F0E0C]`}>Things I&apos;ve built</h2>
           </div>
           <p className={`animate-item fade-up ${revealed ? "visible" : ""} text-sm text-[#5A5650] max-w-lg`}>
-            Real engineering work — a live product, an award-winning app, and a system that
+            Real engineering work: a live product, an award-winning app, and a system that
             replaced a government paper trail.
           </p>
         </div>

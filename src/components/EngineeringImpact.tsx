@@ -7,7 +7,7 @@ const syne = Syne({ subsets: ["latin"], weight: ["800"] });
 /**
  * A thin full-width strip of headline numbers that bridges the project
  * showcase and the journey. Every figure is lifted verbatim from copy that
- * already lives elsewhere on the page — nothing new is claimed here.
+ * already lives elsewhere on the page; nothing new is claimed here.
  */
 const metrics = [
   { value: "20–30%", caption: "lower search latency", source: "Bardar backend" },

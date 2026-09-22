@@ -83,8 +83,8 @@ export default function Footer() {
           <span className="grad-text">next part</span>.
         </h2>
         <p className="text-white/75 text-base mb-10 max-w-md mx-auto">
-          I&apos;m in Canberra and <span className="text-white font-medium">available now</span> —
-          for full-time roles, freelance, and problems that don&apos;t have an obvious answer yet.
+          I&apos;m in Canberra and <span className="text-white font-medium">available now</span> for
+          full-time roles, freelance, and the odd hard problem.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12">
