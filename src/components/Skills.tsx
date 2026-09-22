@@ -28,7 +28,7 @@ const skillGroups = [
   {
     label: "AI & ML",
     color: "#7B2FBE",
-    blurb: "The AI/ML side of my work — both applied integrations and published research.",
+    blurb: "The AI/ML side of my work: applied integrations and published research.",
     skills: ["Gemini API", "Hugging Face", "YOLO", "CNNs", "NLP", "OCR"],
   },
   {

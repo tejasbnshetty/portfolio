@@ -30,7 +30,7 @@ type Entry = {
   details: string[];
 };
 
-// One chronological story. Roles and study sit on the same rail — the year a
+// One chronological story. Roles and study sit on the same rail: the year a
 // thing happened matters more than whether it was a job or a degree.
 const entries: Entry[] = [
   {
@@ -77,7 +77,7 @@ const entries: Entry[] = [
     org: "Axiscades Technologies · Bengaluru",
     meta: "Feb – Jul 2024",
     narrative:
-      "Built Python/Flask APIs and YOLO-based defect-detection pipelines for industrial manufacturing clients — 25% faster processing, 60% fewer errors on the line. The same season, I finished my B.E. at M.S. Ramaiah.",
+      "Built Python/Flask APIs and YOLO-based defect-detection pipelines for industrial manufacturing clients: 25% faster processing, 60% fewer errors on the line. The same season, I finished my B.E. at M.S. Ramaiah.",
     accent: "#06D6A0",
     details: [
       "Delivered Python/Flask backend APIs and a QR-based inventory system to automate chip fabrication inventory workflows, reducing processing time by 25%.",
@@ -93,12 +93,12 @@ const entries: Entry[] = [
     org: "ISRO · via M.S. Ramaiah",
     meta: "Feb 2023 – Feb 2024 · Bengaluru",
     narrative:
-      "Designed and deployed ML models — CNNs, autoencoders, random forests — across 50+ configurations to optimise satellite mission operations: 30% more efficient, 85% accuracy predicting part failures. I also published my first three peer-reviewed papers this year.",
+      "Designed and deployed ML models (CNNs, autoencoders, random forests) across 50+ configurations to optimise satellite mission operations: 30% more efficient, 85% accuracy predicting part failures. I also published my first three peer-reviewed papers this year.",
     accent: "#EF476F",
     details: [
       "Designed and deployed ML models (CNNs, Autoencoders, Random Forest) across 50+ configurations to optimise satellite mission operations, achieving a 30% increase in operational efficiency.",
       "Developed predictive maintenance workflows using Expert Systems and ML to detect satellite part failures with 85% accuracy, reducing maintenance downtime by 25%.",
-      "Published three peer-reviewed papers (IEEE ICCCNT, IEEE ICCPCT, IJACSA) — now cited 21 times.",
+      "Published three peer-reviewed papers (IEEE ICCCNT, IEEE ICCPCT, IJACSA), now cited 21 times.",
     ],
   },
   {
@@ -222,7 +222,7 @@ export default function Journey() {
           <h2 className={`${syne.className} text-3xl font-bold text-[#0F0E0C]`}>My journey</h2>
         </div>
         <p className={`j-head ${revealed ? "in" : ""} text-sm text-[#5A5650] max-w-lg mb-14`}>
-          Six years, four teams, two degrees and a handful of papers — in the order they
+          Six years, four teams, two degrees, and a handful of papers, in the order they
           actually happened.
         </p>
 

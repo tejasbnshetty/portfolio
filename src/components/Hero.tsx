@@ -59,7 +59,7 @@ export default function Hero() {
         {/* Description */}
         <p className="hero-desc text-lg text-[#5A5650] max-w-xl leading-relaxed mb-9">
           <strong className="text-[#0F0E0C] font-medium">Software developer based in Canberra.</strong><br />
-          Fresh Master of Computing graduate from ANU, specialising in AI. I build backend systems, ship AI integrations, and occasionally publish research &mdash; then care just as much about how the work is presented.
+          Fresh Master of Computing graduate from ANU, specialising in AI. I build backend systems, ship AI integrations, and publish research, then care just as much about how the work is presented.
         </p>
 
         {/* Buttons */}

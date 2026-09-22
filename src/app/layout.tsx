@@ -14,7 +14,7 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "Tejas Shetty — Software Developer",
+  title: "Tejas Shetty · Software Developer",
   description:
     "Software developer based in Canberra. I build backend systems, ship AI integrations, and occasionally publish research.",
   openGraph: {
