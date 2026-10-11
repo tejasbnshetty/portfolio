@@ -86,7 +86,7 @@ export default function Skills() {
       ref={sectionRef}
       data-cursor-theme="skills"
       onMouseMove={onMove}
-      className="relative py-20 w-full overflow-hidden"
+      className="relative pt-8 pb-14 w-full overflow-hidden"
     >
       <FloatingIcons icons={bgIcons} />
 

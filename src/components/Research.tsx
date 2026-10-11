@@ -74,7 +74,7 @@ export default function Research() {
   }, []);
 
   return (
-    <section id="research" ref={sectionRef} data-cursor-theme="research" className="relative py-20 w-full overflow-hidden">
+    <section id="research" ref={sectionRef} data-cursor-theme="research" className="relative py-14 w-full overflow-hidden">
       <FloatingIcons icons={bgIcons} />
 
       <div className="relative z-10 max-w-4xl mx-auto px-7">

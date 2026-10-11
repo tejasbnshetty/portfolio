@@ -34,12 +34,12 @@ export default function Hero() {
     <section
       ref={heroRef}
       data-cursor-theme="hero"
-      className="hero-section relative w-full min-h-screen overflow-hidden"
+      className="hero-section relative w-full overflow-hidden"
     >
       {/* Ambient tech icons */}
       <FloatingIcons icons={bgIcons} />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-7 pt-36 pb-20 flex flex-col lg:flex-row items-center lg:items-start gap-10 justify-center min-h-screen">
+      <div className="relative z-10 max-w-4xl mx-auto px-7 pt-16 sm:pt-20 pb-14 flex flex-col lg:flex-row items-center lg:items-start gap-10 justify-center">
 
         {/* ── Text ── */}
         <div className="flex-1 flex flex-col">
@@ -47,7 +47,7 @@ export default function Hero() {
         {/* Status */}
         <div className="hero-status inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full border border-[#E8E4DC] bg-white/60 backdrop-blur-sm text-xs font-medium text-[#5A5650] mb-5">
           <span className="w-2 h-2 rounded-full bg-[#06D6A0] hero-live" />
-          Master of Computing @ ANU · open to work
+          ANU Master of Computing graduate · open to work
         </div>
 
         {/* Headline */}
@@ -58,7 +58,7 @@ export default function Hero() {
 
         {/* Description */}
         <p className="hero-desc text-lg text-[#5A5650] max-w-xl leading-relaxed mb-9">
-          <strong className="text-[#0F0E0C] font-medium">Software developer based in Canberra.</strong><br />
+          <strong className="text-[#0F0E0C] font-medium">Software developer based in Australia.</strong><br />
           Fresh Master of Computing graduate from ANU, specialising in AI. I build backend systems, ship AI integrations, and publish research, then care just as much about how the work is presented.
         </p>
 

@@ -36,11 +36,11 @@ const entries: Entry[] = [
   {
     year: "2026",
     kind: "study",
-    title: "Finishing the Master of Computing",
+    title: "Graduated with a Master of Computing",
     org: "Australian National University",
-    meta: "Jul 2024 – Jun 2026 · Canberra",
+    meta: "Jul 2024 – Jun 2026 · Australia",
     narrative:
-      "Graduating from ANU with a specialisation in Artificial Intelligence and a Distinction average. My industry capstone shipped to a real client instead of a marking rubric.",
+      "Graduated from ANU with a specialisation in Artificial Intelligence and a Distinction average. My industry capstone shipped to a real client instead of a marking rubric.",
     accent: "#4361EE",
     logo: { src: "/anu.png", alt: "Australian National University" },
     details: [
@@ -55,7 +55,7 @@ const entries: Entry[] = [
     kind: "work",
     title: "Owned the Bardar backend",
     org: "Bardar · ANU TechLauncher",
-    meta: "Jul 2025 – Jun 2026 · Canberra",
+    meta: "Jul 2025 – Jun 2026 · Australia",
     narrative:
       "Engineered the entire NestJS backend from scratch: 10+ REST APIs, the log-scaled Bardar Score, a priority task queue with per-API rate limiting, and an agentic AI chatbot wired to every backend tool call. Search got 20–30% faster.",
     accent: "#FF6B35",
@@ -199,10 +199,18 @@ export default function Journey() {
     return () => obs.disconnect();
   }, []);
 
-  function toggle(i: number, e: React.MouseEvent<HTMLButtonElement>) {
+  function toggle(i: number, e: React.MouseEvent<HTMLElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
     setOrigin({ x: ((e.clientX - rect.left) / rect.width) * 100, y: 0 });
     setOpenIdx(openIdx === i ? null : i);
+  }
+
+  // The whole card is a click target. Links and the "detail" button keep their own behaviour,
+  // and finishing a text selection inside the card must not collapse it.
+  function onCardClick(i: number, e: React.MouseEvent<HTMLElement>) {
+    if ((e.target as HTMLElement).closest("a, button")) return;
+    if (window.getSelection()?.toString()) return;
+    toggle(i, e);
   }
 
   return (
@@ -210,7 +218,7 @@ export default function Journey() {
       id="journey"
       ref={sectionRef}
       data-cursor-theme="experience"
-      className="relative py-20 w-full overflow-hidden"
+      className="relative py-14 w-full overflow-hidden"
     >
       <FloatingIcons icons={bgIcons} />
 
@@ -295,7 +303,10 @@ export default function Journey() {
 
                   {/* Body */}
                   <div
-                    className="j-card rounded-2xl border bg-white/80 backdrop-blur-sm overflow-hidden"
+                    onClick={(e) => onCardClick(i, e)}
+                    data-cursor="read"
+                    data-cursor-label={isOpen ? "CLOSE" : "EXPAND"}
+                    className="j-card rounded-2xl border bg-white/80 backdrop-blur-sm overflow-hidden cursor-pointer"
                     style={{
                       borderColor: isHot ? entry.accent + "66" : "#E8E4DC",
                       boxShadow: isHot

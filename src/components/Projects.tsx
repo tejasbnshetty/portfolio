@@ -33,6 +33,19 @@ type Project = {
   badgeClass: string;
   cover: string;
   coverAlt: string;
+  /** Solid colour behind a letterboxed (object-contain) cover, for dark UI screenshots. */
+  coverBg?: string;
+  /** Large-screen panel: show the screenshots as a full-size gallery instead of cover + thumbnails. */
+  gallery?: boolean;
+  galleryBg?: string;
+  /** Max height (px) of a gallery tile, so low-res screenshots are not blown up. */
+  galleryMaxH?: number;
+  galleryCover?: boolean;
+  /** Full-width card in the stacked layout. */
+  wide?: boolean;
+  /** Optional second call-to-action, e.g. a published paper. */
+  paper?: { href: string; label: string };
+  logo?: string;
   portrait: boolean;
   metrics?: { value: string; label: string }[];
   highlights: string[];
@@ -53,6 +66,7 @@ const bardar: Project = {
   badgeClass: "text-[var(--c3-text)] bg-[var(--tint-green)]",
   cover: "/bardar-splash.png",
   coverAlt: "Bardar: your city's music scene, in one view",
+  coverBg: "#070B16",
   portrait: false,
   metrics: [
     { value: "20–30%", label: "lower search latency" },
@@ -76,6 +90,40 @@ const bardar: Project = {
 
 const secondary: Project[] = [
   {
+    name: "Keyboard DS5",
+    role: "Open-source Windows app",
+    desc: "Control a PS5 from a Windows PC over Sony's Remote Play protocol: a TV-style remote plus keyboard-and-mouse gaming, with no video streamed. Connects in about a second instead of 5.5 s.",
+    tags: ["Python", "asyncio", "WebSockets", "pywebview", "PyInstaller", "GitHub Actions", "pytest"],
+    link: "https://github.com/tejasbnshetty/keyboard-ds5/releases/tag/v0.1.0",
+    linkLabel: "Download v0.1.0",
+    github: "https://github.com/tejasbnshetty/keyboard-ds5",
+    accent: "#4361EE",
+    badge: "🚀 Open source · v0.1.0 released",
+    badgeClass: "text-[var(--c2-text)] bg-[var(--tint-blue)]",
+    cover: "/controller%20page.png",
+    coverBg: "#0E1015",
+    wide: true,
+    logo: "/keyboardds5-256.png",
+    coverAlt: "Keyboard DS5 remote screen with on-screen controller and live stick visualiser",
+    portrait: false,
+    metrics: [
+      { value: "1 s", label: "to connect, down from 5.5 s" },
+      { value: "540", label: "automated tests" },
+      { value: "7", label: "protocol defects fixed" },
+      { value: "125 Hz", label: "controller input rate" },
+    ],
+    highlights: [
+      "Cut connect time from 5.5 s to about 1 s by timing each handshake phase and diffing against a reference C implementation.",
+      "Fixed 7 defects in an archived protocol library without touching its source, and replaced its thread-unsafe controller sender with an asyncio one running at about 125 Hz.",
+      "Built a mouse-to-stick model with response curves, anti-deadzone and smoothing, plus a live stick visualiser and fully remappable profiles.",
+      "Shipped a key-free release pipeline: SHA-256-verified first-run downloads, a CI scanner that fails the build on a match, and build-provenance attestations.",
+    ],
+    screens: [
+      { src: "/key%20bindings.png", alt: "Remappable keyboard, mouse and wheel bindings with profiles" },
+      { src: "/controller%20page.png", alt: "On-screen controller with live stick visualiser" },
+    ],
+  },
+  {
     name: "Nutricate",
     role: "Hackathon Project",
     desc: "Android app that uses OCR to scan food labels and instantly flags allergens against a personal database. Award-winning at IISc Bengaluru's Social Hackathon League.",
@@ -87,6 +135,20 @@ const secondary: Project[] = [
     badgeClass: "text-[var(--c3-text)] bg-[var(--tint-green)]",
     cover: "/nutricate-splash.png",
     coverAlt: "Nutricate scan screen",
+    gallery: true,
+    galleryBg: "#2B1F35",
+    galleryMaxH: 330,
+    galleryCover: true,
+    metrics: [
+      { value: "Best", label: "Social Project, IISc Bengaluru" },
+      { value: "IEEE", label: "paper published on it" },
+      { value: "Android", label: "native Java app" },
+      { value: "Offline", label: "friendly by design" },
+    ],
+    paper: {
+      href: "https://doi.org/10.1109/ICCCNT56998.2023.10307054",
+      label: "IEEE paper",
+    },
     portrait: true,
     highlights: [
       "Solves a real problem: people with food allergies struggle to quickly verify if packaged products are safe.",
@@ -111,6 +173,14 @@ const secondary: Project[] = [
     badgeClass: "",
     cover: "/polirec-splash.png",
     coverAlt: "PoliRec: streamlining citizen and vehicle records",
+    gallery: true,
+    galleryBg: "#F5FBFF",
+    galleryMaxH: 470,
+    metrics: [
+      { value: "2", label: "portals: user and admin" },
+      { value: "LLM", label: "chatbot resolves queries" },
+      { value: "Android", label: "Java + Firebase" },
+    ],
     portrait: true,
     highlights: [
       "Built to address fragmented government vehicle management and public query systems.",
@@ -129,6 +199,11 @@ const secondary: Project[] = [
 
 const panels: Project[] = [bardar, ...secondary];
 
+/** Cover first, then the screens (deduped: some projects reuse the cover as a screen). */
+function viewerImages(p: Project): Screen[] {
+  return [{ src: p.cover, alt: p.coverAlt }, ...p.screens.filter((s) => s.src !== p.cover)];
+}
+
 const bgIcons = [
   { Icon: CodeIcon,     top: "5%",  left: "88%", size: 34, color: "#FF6B35", delay: 0,   duration: 7 },
   { Icon: TerminalIcon, top: "30%", left: "4%",  size: 28, color: "#4361EE", delay: 1.2, duration: 8 },
@@ -143,13 +218,18 @@ function ParallaxCover({
   alt,
   className = "",
   heightClass = "h-56 sm:h-72",
-  objectClass = "object-top",
+  objectClass = "object-cover object-top",
+  background,
+  onClick,
 }: {
   src: string;
   alt: string;
   className?: string;
   heightClass?: string;
   objectClass?: string;
+  background?: string;
+  /** When set the cover is a real control (opens the viewer); otherwise it is just an image. */
+  onClick?: () => void;
 }) {
   const ref = useRef<HTMLImageElement>(null);
   const reduced = useRef(false);
@@ -175,15 +255,31 @@ function ParallaxCover({
     <div
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      data-cursor="explore"
-      className={`overflow-hidden ${heightClass} ${className}`}
+      {...(onClick
+        ? {
+            role: "button",
+            tabIndex: 0,
+            onClick,
+            onKeyDown: (e: React.KeyboardEvent) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onClick();
+              }
+            },
+            "aria-label": `View ${alt}`,
+            "data-cursor": "explore",
+            "data-cursor-label": "VIEW",
+          }
+        : {})}
+      className={`overflow-hidden ${heightClass} ${onClick ? "cursor-zoom-in" : ""} ${className}`}
+      style={background ? { background } : undefined}
     >
       <img
         ref={ref}
         src={src}
         alt={alt}
         loading="lazy"
-        className={`w-full h-full object-cover ${objectClass} transition-transform duration-[500ms] ease-out`}
+        className={`w-full h-full ${objectClass} transition-transform duration-[500ms] ease-out`}
       />
     </div>
   );
@@ -194,11 +290,13 @@ function BardarHero({
   origin,
   onToggle,
   onLightbox,
+  onCover,
 }: {
   open: boolean;
   origin: { x: number; y: number };
   onToggle: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onLightbox: (i: number) => void;
+  onCover: () => void;
 }) {
   const p = bardar;
   return (
@@ -211,7 +309,7 @@ function BardarHero({
           : "0 12px 32px -18px rgba(15,14,12,0.25)",
       }}
     >
-      <ParallaxCover src={p.cover} alt={p.coverAlt} heightClass="h-52 sm:h-80" />
+      <ParallaxCover src={p.cover} alt={p.coverAlt} heightClass="h-52 sm:h-80" onClick={onCover} />
 
       {/* Metric bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 bg-[#0F0E0C] text-white">
@@ -331,24 +429,46 @@ function SecondaryCard({
   origin,
   onToggle,
   onLightbox,
+  onCover,
 }: {
   p: Project;
   isOpen: boolean;
   origin: { x: number; y: number };
   onToggle: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onLightbox: (index: number) => void;
+  onCover: () => void;
 }) {
   const screensRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
-      className="card-tilt rounded-2xl border-2 bg-white/85 backdrop-blur-sm overflow-hidden h-fit"
+      className="card-tilt rounded-2xl border-2 bg-white/85 backdrop-blur-sm overflow-hidden h-full"
       style={{
         borderColor: p.accent,
         ...(isOpen ? { boxShadow: `0 0 0 3px ${p.accent}22, 0 12px 32px -8px ${p.accent}33` } : {}),
       }}
     >
-      <ParallaxCover src={p.cover} alt={p.coverAlt} heightClass="h-48" objectClass="object-center" />
+      <ParallaxCover
+        src={p.cover}
+        alt={p.coverAlt}
+        heightClass={p.coverBg ? "h-64 sm:h-96" : "h-48"}
+        objectClass={p.coverBg ? "object-contain" : "object-cover object-center"}
+        background={p.coverBg}
+        onClick={onCover}
+      />
+
+      {p.metrics && (
+        <div
+          className={`grid grid-cols-2 bg-[#0F0E0C] text-white ${p.wide ? "sm:grid-cols-4" : ""}`}
+        >
+          {p.metrics.map((m) => (
+            <div key={m.label} className="px-4 py-3.5 border-r border-white/10 last:border-r-0">
+              <p className={`${syne.className} text-lg font-black leading-none`}>{m.value}</p>
+              <p className="text-[11px] text-white/60 mt-1 leading-snug">{m.label}</p>
+            </div>
+          ))}
+        </div>
+      )}
 
       <button
         type="button"
@@ -366,7 +486,10 @@ function SecondaryCard({
             <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: p.accent }}>
               {p.role}
             </p>
-            <h3 className={`${syne.className} text-lg font-bold text-[#0F0E0C]`}>{p.name}</h3>
+            <h3 className={`${syne.className} text-lg font-bold text-[#0F0E0C] flex items-center gap-2`}>
+              {p.logo && <img src={p.logo} alt="" width={28} height={28} className="w-7 h-7 rounded-lg" />}
+              {p.name}
+            </h3>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             {p.github && (
@@ -414,6 +537,21 @@ function SecondaryCard({
         </div>
       </button>
 
+      {p.link && (
+        <div className="px-5 -mt-1 pb-5">
+          <a
+            href={p.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="external"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-white text-sm font-medium hover:-translate-y-0.5 hover:shadow-lg transition-all"
+            style={{ background: p.accent }}
+          >
+            {p.linkLabel} ↗
+          </a>
+        </div>
+      )}
+
       <RevealPanel open={isOpen} origin={origin}>
         <div className="px-5 pb-5 pt-1 border-t" style={{ borderColor: p.accent + "33" }}>
           <p className="text-xs font-bold uppercase tracking-widest mb-3 mt-4" style={{ color: p.accent }}>
@@ -430,7 +568,7 @@ function SecondaryCard({
           <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: p.accent }}>
             Screenshots
           </p>
-          <div ref={screensRef} className="flex gap-2 overflow-x-auto snap-x pb-1" style={{ scrollbarWidth: "none" }} data-cursor="drag">
+          <div ref={screensRef} className="flex gap-2 overflow-x-auto snap-x pb-1" style={{ scrollbarWidth: "none" }}>
             {p.screens.map((s, si) => (
               <button
                 key={s.src}
@@ -480,7 +618,7 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="work" ref={sectionRef} data-cursor-theme="work" className="relative py-20 w-full">
+    <section id="work" ref={sectionRef} data-cursor-theme="work" className="relative pt-14 pb-2 w-full">
       <FloatingIcons icons={bgIcons} />
 
       <div className={`relative z-10 max-w-4xl mx-auto px-7 ${reducedMotion ? "" : "lg:hidden"}`}>
@@ -491,8 +629,8 @@ export default function Projects() {
           <h2 className={`${syne.className} text-3xl font-bold text-[#0F0E0C]`}>Things I&apos;ve built</h2>
         </div>
         <p className={`animate-item fade-up ${revealed ? "visible" : ""} text-sm text-[#5A5650] max-w-lg mb-12`}>
-          Real engineering work: a live product, an award-winning app, and a system that
-          replaced a government paper trail.
+          Real engineering work: a live product, an open-source PS5 controller app, an
+          award-winning hackathon build, and a university system with an LLM assistant.
         </p>
 
         <div className={`animate-item fade-up ${revealed ? "visible" : ""} mb-6`}>
@@ -501,14 +639,19 @@ export default function Projects() {
             origin={origin}
             onToggle={(e) => toggle("bardar", e)}
             onLightbox={(si) => setLightbox({ images: bardar.screens, index: Math.max(0, si) })}
+            onCover={() => setLightbox({ images: viewerImages(bardar), index: 0 })}
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
+        <div
+          className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${
+            openKey === null || openKey === "Keyboard DS5" ? "items-stretch" : "items-start"
+          }`}
+        >
           {secondary.map((p, j) => (
             <div
               key={p.name}
-              className={`animate-item fade-up ${revealed ? "visible" : ""}`}
+              className={`animate-item fade-up ${revealed ? "visible" : ""} ${p.wide ? "sm:col-span-2" : ""}`}
               style={{ transitionDelay: `${Math.min(j + 1, 5) * 0.03}s` }}
             >
               <SecondaryCard
@@ -517,6 +660,7 @@ export default function Projects() {
                 origin={origin}
                 onToggle={(e) => toggle(p.name, e)}
                 onLightbox={(si) => setLightbox({ images: p.screens, index: si })}
+                onCover={() => setLightbox({ images: viewerImages(p), index: 0 })}
               />
             </div>
           ))}
@@ -532,8 +676,8 @@ export default function Projects() {
             <h2 className={`${syne.className} text-3xl font-bold text-[#0F0E0C]`}>Things I&apos;ve built</h2>
           </div>
           <p className={`animate-item fade-up ${revealed ? "visible" : ""} text-sm text-[#5A5650] max-w-lg`}>
-            Real engineering work: a live product, an award-winning app, and a system that
-            replaced a government paper trail.
+            Real engineering work: a live product, an open-source PS5 controller app, an
+            award-winning hackathon build, and a university system with an LLM assistant.
           </p>
         </div>
         <ProjectShowcase

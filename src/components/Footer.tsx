@@ -73,7 +73,7 @@ export default function Footer() {
   }
 
   return (
-    <footer id="contact" ref={ref} className="relative w-full py-24 border-t border-white/15">
+    <footer id="contact" ref={ref} className="relative w-full pt-16 pb-32 border-t border-white/15">
       <div className={`c-in ${revealed ? "in" : ""} max-w-4xl mx-auto px-7 text-center`}>
         <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-5">
           The end of the page, not the story
@@ -83,7 +83,7 @@ export default function Footer() {
           <span className="grad-text">next part</span>.
         </h2>
         <p className="text-white/75 text-base mb-10 max-w-md mx-auto">
-          I&apos;m in Canberra and <span className="text-white font-medium">available now</span> for
+          I&apos;m in Australia and <span className="text-white font-medium">available now</span> for
           full-time roles, freelance, and the odd hard problem.
         </p>
 

@@ -45,7 +45,7 @@ export default function PersonalSnapshot() {
       id="snapshot"
       ref={sectionRef}
       data-cursor-theme="snapshot"
-      className="relative w-full py-16"
+      className="relative w-full py-12"
     >
       {/* Tinted full-bleed strip */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#FFF2ED]/70 via-[#FEE8EF]/50 to-[#EEF1FF]/60 border-y border-white/40" />
@@ -63,7 +63,7 @@ export default function PersonalSnapshot() {
             revealed={revealed}
             delay={0}
             className="col-span-2"
-            label="Studying"
+            label="Graduated"
             icon={BookIcon}
             accent="#4361EE"
             magnetic
@@ -79,9 +79,8 @@ export default function PersonalSnapshot() {
           {/* Location */}
           <Tile revealed={revealed} delay={0.03} label="Based in" accent="var(--c1-text)">
             <p className={`${syne.className} text-lg font-bold text-[#0F0E0C] leading-tight`}>
-              Canberra
+              Australia
             </p>
-            <p className="text-xs text-[#5A5650] mt-1">Australia</p>
           </Tile>
 
           {/* Availability — the live tile */}
@@ -103,7 +102,7 @@ export default function PersonalSnapshot() {
             icon={RocketIcon}
             accent="var(--c1-text)"
           >
-            <p className={`${syne.className} text-3xl font-black text-[#0F0E0C] leading-none`}>03</p>
+            <p className={`${syne.className} text-3xl font-black text-[#0F0E0C] leading-none`}>04</p>
             <p className="text-xs text-[#5A5650] mt-1.5">projects, shipped end&#8209;to&#8209;end</p>
           </Tile>
 

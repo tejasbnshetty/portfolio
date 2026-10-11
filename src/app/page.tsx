@@ -9,7 +9,7 @@ import Research from "@/components/Research";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import PageBurst from "@/components/PageBurst";
-import ScrollProgress from "@/components/ScrollProgress";
+// import ScrollProgress from "@/components/ScrollProgress";
 import Blobs from "@/components/Blobs";
 
 export default function Home() {
@@ -17,13 +17,13 @@ export default function Home() {
     <main className="relative">
       <CustomCursor />
       <PageBurst />
-      <ScrollProgress />
+      {/* <ScrollProgress /> */}
       <Blobs />
       <Navbar />
       <Hero />
       <PersonalSnapshot />
       <Journey />
-      <EngineeringImpact />
+      {/* <EngineeringImpact /> */}
       <Projects />
       <Skills />
       <Research />

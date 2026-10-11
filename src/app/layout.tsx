@@ -16,10 +16,10 @@ const syne = Syne({
 export const metadata: Metadata = {
   title: "Tejas Shetty · Software Developer",
   description:
-    "Software developer based in Canberra. I build backend systems, ship AI integrations, and occasionally publish research.",
+    "Software developer based in Australia. I build backend systems, ship AI integrations, and occasionally publish research.",
   openGraph: {
     title: "Tejas Shetty",
-    description: "Software developer based in Canberra, AU.",
+    description: "Software developer based in Australia.",
     url: "https://tejasshetty.dev",
   },
 };
