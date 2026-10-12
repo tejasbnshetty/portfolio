@@ -186,7 +186,7 @@ const secondary: Project[] = [
       "Built to address fragmented government vehicle management and public query systems.",
       "Unified platform with separate user and admin portals. Users submit service requests, track status, and resolve queries in one place.",
       "Admins manage and resolve requests from a dedicated dashboard.",
-      "Integrated a Hugging Face LLM chatbot to automate responses to common queries, significantly reducing manual overhead for admin staff.",
+      "Integrated an LLM chatbot(PolyRecBot) to automate responses to common queries, significantly reducing manual overhead for admin staff.",
     ],
     screens: [
       { src: "/polirec-search.png", alt: "Advanced Search" },

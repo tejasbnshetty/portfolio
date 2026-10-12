@@ -72,7 +72,7 @@ export default function PersonalSnapshot() {
               Master of Computing
             </p>
             <p className="text-xs text-[#5A5650] mt-1">
-              ANU · specialising in AI · Distinction average
+              ANU · specialising in AI
             </p>
           </Tile>
 

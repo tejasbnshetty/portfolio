@@ -40,7 +40,7 @@ const entries: Entry[] = [
     org: "Australian National University",
     meta: "Jul 2024 – Jun 2026 · Australia",
     narrative:
-      "Graduated from ANU with a specialisation in Artificial Intelligence and a Distinction average. My industry capstone shipped to a real client instead of a marking rubric.",
+      "Graduated from ANU with a specialisation in Artificial Intelligence. My industry capstone shipped to a real client instead of a marking rubric.",
     accent: "#4361EE",
     logo: { src: "/anu.png", alt: "Australian National University" },
     details: [
@@ -114,7 +114,7 @@ const entries: Entry[] = [
       "First professional software role. Built the onboarding flows new users see when registering for the first time.",
       "Simplified the registration process, improving user engagement by 40%.",
       "Automated 90% of QA testing workflows, drastically reducing manual testing effort.",
-      "Cut daily bug reports to under 2 per week through systematic test coverage.",
+      "Brought bug reports down from daily to under 2 a week through systematic test coverage.",
       "Worked directly with the client team, managing communication and delivery independently.",
     ],
   },

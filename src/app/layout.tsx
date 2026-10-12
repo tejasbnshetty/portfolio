@@ -20,7 +20,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Tejas Shetty",
     description: "Software developer based in Australia.",
-    url: "https://tejasshetty.dev",
   },
 };
 
